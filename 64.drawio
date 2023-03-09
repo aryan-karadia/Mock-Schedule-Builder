@@ -1,25 +1,25 @@
-<mxfile host="app.diagrams.net" modified="2023-03-09T21:14:25.479Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="9FjqUsWjZp-mOqY8MMqw" version="21.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-09T21:39:39.458Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="EXc-KPfVBJWgFFLPKnPo" version="21.0.4" type="github">
   <diagram id="2KpLl_mZCOHA58I0HmC6" name="Page-1">
-    <mxGraphModel dx="1348" dy="958" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1797" dy="1277" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-2" value="WildlifeRescue" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="50" y="70" width="250" height="170" as="geometry">
+          <mxGeometry x="50" y="70" width="330" height="240" as="geometry">
             <mxRectangle x="470" y="20" width="130" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-3" value="- animalsInCare: List&lt;Animal&gt;&#xa;- tasks: List&lt;Task&gt;&#xa;- backupVolunteerneeded: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-2" vertex="1">
-          <mxGeometry y="26" width="250" height="54" as="geometry" />
+        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-3" value="- animalsInCare: List&lt;Animal&gt;&#xa;- tasks: List&lt;Task&gt;&#xa;- backupVolunteerNeeded: boolean = false&#xa;- schedule: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-2" vertex="1">
+          <mxGeometry y="26" width="330" height="64" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="-pHp2P_mZ8aD6D5N5FeK-2" vertex="1">
-          <mxGeometry y="80" width="250" height="8" as="geometry" />
+          <mxGeometry y="90" width="330" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-5" value="+ WildlifeRescue(List&lt;Animal&gt; animals)&#xa;+ getTasks(): List&lt;Task&gt;&#xa;+ getAnimalsInCare(): List&lt;Animal&gt;&#xa;+ getBackupNeeded(): boolean&#xa;+ outputSchedule(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-2" vertex="1">
-          <mxGeometry y="88" width="250" height="82" as="geometry" />
+        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-5" value="+ WildlifeRescue(animals: List&lt;Animal&gt;, tasks: List&lt;Task&gt;)&#xa;+ getTasks(): List&lt;Task&gt;&#xa;+ getAnimalsInCare(): List&lt;Animal&gt;&#xa;+ getBackupNeeded(): boolean&#xa;+ addTask(task: Task)&#xa;+ addAnimal(animal: Animal)&#xa;+ setBackupVolunteerNeeded(needed: boolean)&#xa;+ outputSchedule(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-2" vertex="1">
+          <mxGeometry y="98" width="330" height="142" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-6" value="Animal" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="400" y="70" width="260" height="400" as="geometry" />
+          <mxGeometry x="470" y="70" width="260" height="400" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-7" value="- TYPE: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=4" parent="-pHp2P_mZ8aD6D5N5FeK-6" vertex="1">
           <mxGeometry y="26" width="260" height="24" as="geometry" />
@@ -67,7 +67,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-19" value="Task" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="425" y="540" width="210" height="330" as="geometry" />
+          <mxGeometry x="495" y="540" width="210" height="330" as="geometry" />
         </mxCell>
         <mxCell id="HXh5B0J5rtE3h4fHHcjP-2" value="&lt;u&gt;- DURATION: int&lt;/u&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;spacingLeft=4;spacingRight=4;" vertex="1" parent="-pHp2P_mZ8aD6D5N5FeK-19">
           <mxGeometry y="26" width="210" height="30" as="geometry" />
@@ -99,12 +99,12 @@
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-26" value="1..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="360" y="80" width="40" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-27" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;exitX=0.753;exitY=1.013;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="-pHp2P_mZ8aD6D5N5FeK-5" target="-pHp2P_mZ8aD6D5N5FeK-20" edge="1">
+        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-27" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;exitX=0.753;exitY=1.013;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.003;entryY=0.167;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="-pHp2P_mZ8aD6D5N5FeK-5" target="-pHp2P_mZ8aD6D5N5FeK-20" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="230" y="460" as="sourcePoint" />
             <mxPoint x="390" y="460" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="250" y="593" />
+              <mxPoint x="290" y="600" />
             </Array>
           </mxGeometry>
         </mxCell>
