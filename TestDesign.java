@@ -2,6 +2,9 @@ package edu.ucalgary.oop;
 
 import org.junit.*;
 import org.junit.Before;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 
@@ -150,6 +153,36 @@ public class TestDesign {
         catch (Exception e) {
             fail("Task getID throws an unexpected error");
         }
+    }
+
+    @Test
+    public void testEnumarateNocturnalHours() {
+        ArrayList<Integer> expResult = new ArrayList<Integer>(3);
+        expResult.add(0);
+        expResult.add(1);
+        expResult.add(2);
+        ArrayList<Integer> result = ActiveHours.NOCTURNAL.feedingHours();
+        assertEquals("Nocturnal feedingHours() in enum class returns wrong values:", expResult, result);
+    }
+
+    @Test
+    public void testEnumarateDiurnalHours() {
+        ArrayList<Integer> expResult = new ArrayList<Integer>(3);
+        expResult.add(8);
+        expResult.add(9);
+        expResult.add(10);
+        ArrayList<Integer> result = ActiveHours.DIURNAL.feedingHours();
+        assertEquals("Diurnal feedingHours() in enum class returns wrong values:", expResult, result);
+    }
+
+    @Test
+    public void testEnumarateCrepuscularHours() {
+        ArrayList<Integer> expResult = new ArrayList<Integer>(3);
+        expResult.add(19);
+        expResult.add(20);
+        expResult.add(21);
+        ArrayList<Integer> result = ActiveHours.CREPUSCULAR.feedingHours();
+        assertEquals("Crepuscular feedingHours() in enum class returns wrong values:", expResult, result);
     }
 
 
