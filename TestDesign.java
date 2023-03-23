@@ -152,5 +152,18 @@ public class TestDesign {
         }
     }
 
+    @Test
+    public void testFeedingHours() throws Exception {
+        try {
+              ArrayList<Integer> expResult = new ArrayList<Integer>(
+                Arrays.asList(19, 20, 21));
+              ArrayList<Int> result = testTask.feedingHours();
+              assertEquals("Task feedingHours returns wrong ArrayList:", expResult, result);  
+        }
+        catch (Exception e) {
+            fail("Task feedingHours throws an unexpected error");
+        }
+    }
+
 
 }
