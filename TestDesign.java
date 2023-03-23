@@ -47,3 +47,16 @@
         int age = animal1.getAge();
         assertEquals("Animal age should be 12, but it's not", 12, age);
     }
+    // Treatment tests
+    @Test
+    public void testGetTreatmentId() {
+        int id = treatment1.getId();
+        assertEquals("Treatment ID should be 2, but it's not", 2, id);
+    }
+
+    @Test
+    public void testGetTreatmentAnimalId() {
+        int animalId = treatment1.getAnimalId();
+        assertEquals("Treatment animal ID should be 1, but it's not", 1, animalId);
+    }
+}
