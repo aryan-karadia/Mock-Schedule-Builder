@@ -2,6 +2,9 @@ package edu.ucalgary.oop;
 
 import org.junit.*;
 import org.junit.Before;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 
@@ -153,15 +156,41 @@ public class TestDesign {
     }
 
     @Test
-    public void testFeedingHours() throws Exception {
+    public void testEnumarateNocturnalHours() throws Exception {
         try {
-              ArrayList<Integer> expResult = new ArrayList<Integer>(
-                Arrays.asList(19, 20, 21));
-              ArrayList<Int> result = testTask.feedingHours();
-              assertEquals("Task feedingHours returns wrong ArrayList:", expResult, result);  
+            ArrayList<Integer> expResult = new ArrayList<Integer>(
+              Arrays.asList(0, 1, 2));
+            ArrayList<Int> result = ActiveHours.NOCTURNAL.feedingHours();
+            assertEquals("Nocturnal feedingHours() in enum class returns wrong values:", expResult, result);
+      }
+        catch (Exception e) {
+            fail("Nocturnal feedingHours() in enum class throws an unexpected error");
+        }
+    }
+
+    @Test
+    public void testEnumarateDiurnalHours() throws Exception {
+        try {
+            ArrayList<Integer> expResult = new ArrayList<Integer>(
+                Arrays.asList(8, 9, 10));
+            ArrayList<Integer> result = ActiveHours.DIURNAL.feedingHours();
+            assertEquals("Diurnal feedingHours() in enum class returns wrong values:", expResult, result);
         }
         catch (Exception e) {
-            fail("Task feedingHours throws an unexpected error");
+            fail("Diurnal feedingHours() in enum class throws an unexpected error");
+        }
+    }
+
+    @Test
+    public void testEnumarateCrepuscularHours() {
+        try {
+            ArrayList<Integer> expResult = new ArrayList<Integer>(
+                Arrays.asList(19, 20, 21);
+            ArrayList<Integer> result = ActiveHours.CREPUSCULAR.feedingHours();
+            assertEquals("Crepuscular feedingHours() in enum class returns wrong values:", expResult, result);
+        }
+        catch (Exception e) {
+            fail("Crepuscular feedingHours() in enum class throws an unexpected error");
         }
     }
 
