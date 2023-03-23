@@ -1,23 +1,23 @@
-<mxfile host="app.diagrams.net" modified="2023-03-23T01:55:35.392Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="fAMydCM_nupqXJXn1sxV" version="21.0.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-23T01:58:11.715Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="B1gKc5Sax5yT-uBKpu1k" version="21.0.6" type="github">
   <diagram id="2KpLl_mZCOHA58I0HmC6" name="Page-1">
-    <mxGraphModel dx="787" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="419" dy="271" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-6" value="Animal" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="470" y="10" width="310" height="458" as="geometry" />
+          <mxGeometry x="470" y="10" width="340" height="458" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-33" value="&lt;span style=&quot;font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;- ANIMALID: int&lt;br&gt;- TYPE: String&lt;br&gt;- name: String&lt;br&gt;- careNeeded: ArrayList&amp;lt;Treatment&amp;gt;&lt;br&gt;- activeHours: ActiveHours&lt;br&gt;- feedingSchedule: Schedule&lt;br&gt;- timeToFeed: int&lt;br&gt;- isFed: boolean = false&lt;br&gt;- cageCleaned: boolean = false&lt;br&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=default;spacingLeft=4;spacingRight=4;fontStyle=0;" parent="-pHp2P_mZ8aD6D5N5FeK-6" vertex="1">
-          <mxGeometry y="26" width="310" height="144" as="geometry" />
+          <mxGeometry y="26" width="340" height="144" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="-pHp2P_mZ8aD6D5N5FeK-6" vertex="1">
-          <mxGeometry y="170" width="310" height="8" as="geometry" />
+          <mxGeometry y="170" width="340" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-12" value="+ Animal(ANIMALID: int, type: String, name: String, &#xa;activeHours: String, careNeeded: ArrayList&lt;Treatment&gt;, &#xa;FEEDINGHOURS: ArrayList&lt;int&gt;, timeToFeed: int, &#xa;timetoClean: int)&#xa;+ &#xa;+ getTYPE(): String&#xa;+ getName(): String&#xa;+ getCare(): ArrayList&lt;Treatment&gt;&#xa;+ getFEEDINGHOURS(): ArrayList&lt;int&gt;&#xa;+ getTimeToFeed(): int&#xa;+ getTimeToClean(): int&#xa;+ setName(name: String)&#xa;+ setCare(care: ArrayList&lt;Treatment&gt;)&#xa;+ setTimeToFeed(timeToFeed: int)&#xa;+ setTimeToClean(timeToClean: int)&#xa;+ getCageCleaned(): boolean&#xa;+ setCagedCleaned(cleaned: boolean)&#xa;+ getFed(): boolean&#xa;+ setFed(fed: boolean)&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-6" vertex="1">
-          <mxGeometry y="178" width="310" height="280" as="geometry" />
+        <mxCell id="-pHp2P_mZ8aD6D5N5FeK-12" value="+ Animal(ANIMALID: int, type: String, name: String, &#xa;activeHours: ActiveHours, careNeeded: ArrayList&lt;Treatment&gt;, &#xa;feedingSchedule: Schedule, timeToFeed: int)&#xa;+ &#xa;+ getTYPE(): String&#xa;+ getName(): String&#xa;+ getCare(): ArrayList&lt;Treatment&gt;&#xa;+ getFEEDINGHOURS(): ArrayList&lt;int&gt;&#xa;+ getTimeToFeed(): int&#xa;+ getTimeToClean(): int&#xa;+ setName(name: String)&#xa;+ setCare(care: ArrayList&lt;Treatment&gt;)&#xa;+ setTimeToFeed(timeToFeed: int)&#xa;+ setTimeToClean(timeToClean: int)&#xa;+ getCageCleaned(): boolean&#xa;+ setCagedCleaned(cleaned: boolean)&#xa;+ getFed(): boolean&#xa;+ setFed(fed: boolean)&#xa;&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="-pHp2P_mZ8aD6D5N5FeK-6" vertex="1">
+          <mxGeometry y="178" width="340" height="280" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-13" value="« enumeration »&lt;br style=&quot;border-color: var(--border-color); font-weight: 400;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;ActiveHours&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="880" y="108" width="200" height="134" as="geometry" />
+          <mxGeometry x="890" y="108" width="200" height="134" as="geometry" />
         </mxCell>
         <mxCell id="-pHp2P_mZ8aD6D5N5FeK-14" value="NOCTURNAL&lt;br&gt;DIURNAL&lt;br&gt;CREPUSCULAR" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="-pHp2P_mZ8aD6D5N5FeK-13" vertex="1">
           <mxGeometry y="50" width="200" height="50" as="geometry" />
@@ -47,7 +47,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="X3xmoL7LCD3JFngqE5RC-2" value="&amp;lt;&amp;lt;uses&amp;gt;&amp;gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="780" y="170" width="80" height="30" as="geometry" />
+          <mxGeometry x="810" y="130" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="X3xmoL7LCD3JFngqE5RC-3" value="Treatment" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="570" width="160" height="180" as="geometry" />
