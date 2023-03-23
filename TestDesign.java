@@ -1,4 +1,19 @@
-   @Before
+package edu.ucalgary.oop;
+
+import org.junit.*;
+import org.junit.Before;
+import static org.junit.Assert.*;
+
+
+public class TestDesign {
+    private Animal animal1;
+    private Treatment treatment1;
+    private Schedule schedule1;
+
+    /**
+     * Set up instances of Animal and Treatment for testing purposes.
+     */
+    @Before
     public void setUp() {
         animal1 = new Animal(1, "Dog", "Scout", DIURNAL, careNeeded, feedingSchedule, 12);
         treatment1 = new Treatment(2, 12);
@@ -47,7 +62,6 @@
         int age = animal1.getAge();
         assertEquals("Animal age should be 12, but it's not", 12, age);
     }
-    // Treatment tests
     @Test
     public void testGetTreatmentId() {
         int id = treatment1.getId();
@@ -59,4 +73,13 @@
         int animalId = treatment1.getAnimalId();
         assertEquals("Treatment animal ID should be 1, but it's not", 1, animalId);
     }
+    // Schedule tests
+    @Test
+    public void testGetFormattedSchedule() {
+        String formattedSchedule = schedule1.getFormattedSchedule();
+        assertNotNull("Formatted schedule should not be null, but it is", formattedSchedule);
+        assertTrue("Formatted schedule should contain the animal's information, but it doesn't",
+            formattedSchedule.contains("Dog") && formattedSchedule.contains("Scout") && formattedSchedule.contains("DIURNAL"));
+    }
+    
 }
