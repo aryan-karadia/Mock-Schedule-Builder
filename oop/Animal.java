@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Animal {
     private final int ANIMALID;
-    private String TYPE;
-    private final String name;
+    private final String TYPE;
+    private String name;
     private ArrayList<Treatment> careNeeded;
     private ActiveHours activeHours;
     private Schedule feedingSchedule;
