@@ -21,12 +21,4 @@ public class Treatment {
     public int getTaskID() {
         return this.TASKID;
     }
-    
-    public void setTaskID(int taskID) {
-        this.TASKID = taskID;
-    }
-    
-    public void setStartTime(int startTime) {
-        this.STARTTIME = startTime;
-    }
 }

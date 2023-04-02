@@ -1,5 +1,6 @@
 package edu.ucalgary.oop;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Schedule {
@@ -9,7 +10,7 @@ public class Schedule {
     private HashMap<Integer, ArrayList<Task>> tasks = new HashMap<>(24);
 
     public Schedule(Animal[] animals) {
-        this.animals = animals;
+        this.animals = new ArrayList<>(Arrays.asList(animals));
     }
 
     public boolean getBackupNeeded() {

@@ -1,10 +1,10 @@
 package edu.ucalgary.oop;
 
-public class Task {
-    private final int TASKID;
-    private int DURATION;
-    private int timeWindow;
-    private String description;
+abstract class Task {
+    protected final int TASKID;
+    protected final int DURATION;
+    protected final int timeWindow;
+    protected final String description;
 
     public Task(int taskID, int duration, int timeWindow, String description) {
         this.TASKID = taskID;
