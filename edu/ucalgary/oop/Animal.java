@@ -14,6 +14,7 @@ abstract class Animal {
     
     public Animal(int animalID, String type, String name, ActiveHours activeHours,
                   ArrayList<Treatment> careNeeded, Schedule feedingSchedule, int timeToFeed) {
+        // todo - validate input
         this.ANIMALID = animalID;
         this.TYPE = type;
         this.name = name;

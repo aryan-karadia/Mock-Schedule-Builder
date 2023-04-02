@@ -6,6 +6,7 @@ public class Treatment {
     private Task task;
     
     public Treatment(int taskID, int startTime) {
+        // todo - validate input
         this.TASKID = taskID;
         this.STARTTIME = startTime;
     }

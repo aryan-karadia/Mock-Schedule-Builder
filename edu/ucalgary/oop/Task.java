@@ -7,6 +7,7 @@ abstract class Task {
     protected final String description;
 
     public Task(int taskID, int duration, int timeWindow, String description) {
+        // todo - validate input
         this.TASKID = taskID;
         this.DURATION = duration;
         this.timeWindow = timeWindow;

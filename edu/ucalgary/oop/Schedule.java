@@ -10,6 +10,7 @@ public class Schedule {
     private HashMap<Integer, ArrayList<Task>> tasks = new HashMap<>(24);
 
     public Schedule(Animal[] animals) {
+        // todo - validate input
         this.animals = new ArrayList<>(Arrays.asList(animals));
     }
 
