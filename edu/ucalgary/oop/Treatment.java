@@ -5,10 +5,11 @@ public class Treatment {
     private final int STARTTIME;
     private Task task;
     
-    public Treatment(int taskID, int startTime) {
+    public Treatment(int taskID, int startTime, Task task) {
         // todo - validate input
         this.TASKID = taskID;
         this.STARTTIME = startTime;
+        this.task = task;
     }
     
     public Task getTask() {
