@@ -83,6 +83,10 @@ public class Main {
                     Treatment treatment = new Treatment(taskID, startHour);
                     treatments.add(treatment);
 
+                    // Set the task for the treatment
+                    Task task = taskMap.get(taskID);
+                    treatment.setTask(task);
+
                     // Add the treatment to the corresponding animal's careNeeded list
                     Animal animal = animalMap.get(animalID);
                     animal.getCareNeeded().add(treatment);
@@ -96,7 +100,8 @@ public class Main {
 
                 ArrayList<Treatment> treatments1 = animal.getCareNeeded();
                 for (Treatment treatment2 : treatments1) {
-                	System.out.println(treatment2.getTaskID());
+                    Task task = taskMap.get(treatment2.getTaskID());
+                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription());
                 }
 
                 System.out.println();
