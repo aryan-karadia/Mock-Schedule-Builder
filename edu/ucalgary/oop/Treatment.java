@@ -10,7 +10,9 @@ public class Treatment {
         this.TASKID = taskID;
         this.STARTTIME = startTime;
     }
-    
+    public void setTask(Task task) {
+        this.task = task;
+    }
     public Task getTask() {
         return this.task;
     }
@@ -18,7 +20,7 @@ public class Treatment {
     public int getStartTime() {
         return this.STARTTIME;
     }
-    
+
     public int getTaskID() {
         return this.TASKID;
     }
