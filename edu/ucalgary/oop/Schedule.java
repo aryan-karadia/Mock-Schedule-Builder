@@ -26,6 +26,12 @@ public class Schedule {
                 if (tasks.get(startTime) != null && availableMinutes.get(startTime) == 0) {
                     // todo - GUI element which tells person to move a certain task
                 }
+                // if time is taken but available minute is not 0, need to call backup volunteer
+                else if (tasks.get(startTime) != null) {
+                    setBackupNeeded(true);
+
+
+                }
                 // else time is available
                 else {
                     // update available minutes for given hour
