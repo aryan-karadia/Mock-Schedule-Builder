@@ -6,22 +6,27 @@ abstract class Animal {
     protected final String TYPE;
     protected String name;
     protected ArrayList<Treatment> careNeeded;
-    protected ActiveHours activeHours;
+    protected final ActiveHours ACTIVEHOURS;
     protected final ArrayList<Integer> POSSIBLEFEEDINGHOURS;
     protected int timeToFeed;
+    protected int timeToClean;
     protected boolean isFed = false;
     protected boolean cageCleaned = false;
+    protected final int FOODPREPTIME;
+    protected boolean isFoodPrepped = false;
     
     public Animal(int animalID, String type, String name, ActiveHours activeHours,
-                  ArrayList<Treatment> careNeeded, int timeToFeed) {
+                  ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) {
         // todo - validate input
         this.ANIMALID = animalID;
         this.TYPE = type;
         this.name = name;
-        this.activeHours = activeHours;
+        this.ACTIVEHOURS = activeHours;
         this.careNeeded = careNeeded;
-        this.POSSIBLEFEEDINGHOURS = activeHours.feedingHours();
+        this.POSSIBLEFEEDINGHOURS = ACTIVEHOURS.feedingHours();
         this.timeToFeed = timeToFeed;
+        this.FOODPREPTIME = foodPrepTime;
+        this.timeToClean = timeToClean;
     }
     
     public int getAnimalID() {
@@ -49,7 +54,7 @@ abstract class Animal {
     }
     
     public ActiveHours getActiveHours() {
-        return this.activeHours;
+        return this.ACTIVEHOURS;
     }
     
     public int getTimeToFeed() {
@@ -75,6 +80,12 @@ abstract class Animal {
     public void setCageCleaned(boolean cleaned) {
         this.cageCleaned = cleaned;
     }
+
+    public boolean getIsFoodPrepped() { return this.isFoodPrepped; }
+    public void setIsFoodPrepped(boolean isFoodPrepped) {
+        this.isFoodPrepped = isFoodPrepped;
+    }
+
     
     public boolean isDueForFeeding(int currentHour) {
     	//TODO
