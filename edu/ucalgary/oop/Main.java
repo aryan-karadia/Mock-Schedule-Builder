@@ -19,12 +19,18 @@ public class Main {
         try {
             Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "root", "Root");
             Statement stmt = connector.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT * FROM TREATMENTS WHERE AnimalID = " + animalID);
+            ResultSet results = stmt.executeQuery("SELECT TREATMENTS.TaskID, TREATMENTS.StartHour, TASKS.Description, TASKS.Duration, TASKS.MaxWindow FROM TREATMENTS INNER JOIN TASKS ON TREATMENTS.TaskID = TASKS.TaskID WHERE TREATMENTS.AnimalID = " + animalID);
 
             while (results.next()) {
                 int taskID = results.getInt("TaskID");
                 int startTime = results.getInt("StartHour");
+                String description = results.getString("Description");
+                int duration = results.getInt("Duration");
+                int timeWindow = results.getInt("MaxWindow");
+
+                Task task = new Task(taskID, duration, timeWindow, description);
                 Treatment treatment = new Treatment(taskID, startTime);
+                treatment.setTask(task); // You should create a setter method for the task in the Treatment class
                 animalTreatments.add(treatment);
             }
 
@@ -55,6 +61,7 @@ public class Main {
                     case "coyote":
                         Coyote coyote = new Coyote(animalID, nickname, careNeeded);
                         animals.add(coyote);
+                        System.out.println("Coyote ID: " + coyote.getAnimalID() + ", Nickname: " + coyote.getName() + ", Care Needed: " + coyote.getCareNeeded());
                         break;
                     case "fox":
                         Fox fox = new Fox(animalID, nickname, careNeeded);
