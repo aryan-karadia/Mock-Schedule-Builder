@@ -7,20 +7,20 @@ abstract class Animal {
     protected String name;
     protected ArrayList<Treatment> careNeeded;
     protected ActiveHours activeHours;
-    protected Schedule feedingSchedule;
+    protected final ArrayList<Integer> POSSIBLEFEEDINGHOURS;
     protected int timeToFeed;
     protected boolean isFed = false;
     protected boolean cageCleaned = false;
     
     public Animal(int animalID, String type, String name, ActiveHours activeHours,
-                  ArrayList<Treatment> careNeeded, Schedule feedingSchedule, int timeToFeed) {
+                  ArrayList<Treatment> careNeeded, int timeToFeed) {
         // todo - validate input
         this.ANIMALID = animalID;
         this.TYPE = type;
         this.name = name;
         this.activeHours = activeHours;
         this.careNeeded = careNeeded;
-        this.feedingSchedule = feedingSchedule;
+        this.POSSIBLEFEEDINGHOURS = activeHours.feedingHours();
         this.timeToFeed = timeToFeed;
     }
     
@@ -50,10 +50,6 @@ abstract class Animal {
     
     public ActiveHours getActiveHours() {
         return this.activeHours;
-    }
-    
-    public Schedule getFeedingSchedule() {
-        return this.feedingSchedule;
     }
     
     public int getTimeToFeed() {

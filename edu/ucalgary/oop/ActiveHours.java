@@ -1,5 +1,4 @@
 package edu.ucalgary.oop;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public enum ActiveHours {
@@ -30,4 +29,6 @@ public enum ActiveHours {
             return hours;
         }
     };
+
+    public abstract ArrayList<Integer> feedingHours();
 }

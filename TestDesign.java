@@ -160,7 +160,7 @@ public class TestDesign {
         try {
             ArrayList<Integer> expResult = new ArrayList<Integer>(
               Arrays.asList(0, 1, 2));
-            ArrayList<Int> result = ActiveHours.NOCTURNAL.feedingHours();
+            ArrayList<Integer> result = ActiveHours.NOCTURNAL.feedingHours();
             assertEquals("Nocturnal feedingHours() in enum class returns wrong values:", expResult, result);
       }
         catch (Exception e) {
