@@ -29,8 +29,7 @@ public class Main {
                 int timeWindow = results.getInt("MaxWindow");
 
                 Task task = new Task(taskID, duration, timeWindow, description);
-                Treatment treatment = new Treatment(taskID, startTime);
-                treatment.setTask(task); // You should create a setter method for the task in the Treatment class
+                Treatment treatment = new Treatment(taskID, startTime, task);
                 animalTreatments.add(treatment);
             }
 
