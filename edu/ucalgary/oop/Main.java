@@ -13,7 +13,7 @@ public class Main {
             
         try{
             //                                                                      USERNAME, PASSWORD
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/pets", "Brock", "uofc");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/pets", "oop", "password");
         } catch (SQLException e) {
             e.printStackTrace();
         }
