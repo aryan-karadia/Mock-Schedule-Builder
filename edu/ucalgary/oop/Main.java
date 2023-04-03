@@ -80,12 +80,9 @@ public class Main {
                 int startHour = treatmentResults.getInt("StartHour");
 
                 if (animalMap.containsKey(animalID) && taskMap.containsKey(taskID)) {
-                    Treatment treatment = new Treatment(taskID, startHour);
-                    treatments.add(treatment);
-
-                    // Set the task for the treatment
                     Task task = taskMap.get(taskID);
-                    treatment.setTask(task);
+                    Treatment treatment = new Treatment(taskID, startHour, task);
+                    treatments.add(treatment);
 
                     // Add the treatment to the corresponding animal's careNeeded list
                     Animal animal = animalMap.get(animalID);
