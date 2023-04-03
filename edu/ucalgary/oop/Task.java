@@ -1,10 +1,10 @@
 package edu.ucalgary.oop;
 
-abstract class Task {
-    protected final int TASKID;
-    protected final int DURATION;
-    protected final int timeWindow;
-    protected final String description;
+public class Task {
+    private final int TASKID;
+    private final int DURATION;
+    private final int timeWindow;
+    private final String description;
 
     public Task(int taskID, int duration, int timeWindow, String description) {
         // todo - validate input
