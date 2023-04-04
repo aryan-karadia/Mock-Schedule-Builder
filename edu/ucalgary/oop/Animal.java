@@ -85,6 +85,13 @@ abstract class Animal {
     public void setIsFoodPrepped(boolean isFoodPrepped) {
         this.isFoodPrepped = isFoodPrepped;
     }
+    public int getTimeToClean() {
+        return this.timeToClean;
+    }
+
+    public int getFoodPrepTime() {
+        return this.FOODPREPTIME;
+    }
 
     
     public boolean isDueForFeeding(int currentHour) {

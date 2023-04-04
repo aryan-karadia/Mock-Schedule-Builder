@@ -76,7 +76,7 @@ public class Main {
 
                 if (animalMap.containsKey(animalID) && taskMap.containsKey(taskID)) {
                     Task task = taskMap.get(taskID);
-                    Treatment treatment = new Treatment(taskID, startHour, task);
+                    Treatment treatment = new Treatment(taskID, startHour, task, animalID);
                     treatments.add(treatment);
 
                     // Add the treatment to the corresponding animal's careNeeded list
