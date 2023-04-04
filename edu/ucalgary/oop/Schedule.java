@@ -1,9 +1,6 @@
 package edu.ucalgary.oop;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Schedule {
     private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
@@ -29,9 +26,6 @@ public class Schedule {
                 // if time is taken but available minute is not 0, need to call backup volunteer
                 else if (tasks.get(startTime) != null) {
                     setBackupNeeded(startTime, true);
-
-
-
                 }
                 // else time is available
                 else {
@@ -68,12 +62,58 @@ public class Schedule {
 
     // Finds all available time and schedules feeding and cleaning
     public void scheduleFeedingAndCleaningTasks() {
+        // finds amount of each type of animal
+        int amountOfCoyotes = 0;
+        for (Animal animal : this.animals) {
+            if (Objects.equals(animal.getType(), "coyote")) {
+                amountOfCoyotes++;
+            }
+        }
+        int amountOfFoxs = 0;
+        for (Animal animal : this.animals) {
+            if (Objects.equals(animal.getType(), "fox")) {
+                amountOfFoxs++;
+            }
+        }
+        int amountOfBeavers = 0;
+        for (Animal animal : this.animals) {
+            if (Objects.equals(animal.getType(), "beaver")) {
+                amountOfBeavers++;
+            }
+        }
+        int amountOfPorcupines = 0;
+        for (Animal animal : this.animals) {
+            if (Objects.equals(animal.getType(), "porcupine")) {
+                amountOfPorcupines++;
+            }
+        }
+        int amountOfRaccoons = 0;
+        for (Animal animal : this.animals) {
+            if (Objects.equals(animal.getType(), "raccoon")) {
+                amountOfRaccoons++;
+            }
+        }
         while (true) {
-            ArrayList<Integer> availabaleHours = new ArrayList<>(24);
+            ArrayList<Integer> availableHours = new ArrayList<>(24);
+            // finds all available hours
             for (Map.Entry<Integer, Integer> entry : this.availableMinutes.entrySet()) {
                 if (entry.getValue() != 0) {
-                    availabaleHours.add(entry.getKey());
+                    availableHours.add(entry.getKey());
                 }
+            }
+            // for every available hour it finds how much time is remaining and what animals still need to be fed
+            for ( Integer hour : availableHours) {
+                // coyotes first
+                ArrayList<Integer> availableMinutes = new ArrayList<>(3);
+                if (hour == 7) {
+                    // checks how much time is in each hour in Crepuscular ActiveHours
+                    availableMinutes.add(this.availableMinutes.get(hour));
+                    availableMinutes.add(this.availableMinutes.get(hour + 1));
+                    availableMinutes.add(this.availableMinutes.get(hour + 2));
+                }
+                int hourChosen = findMinIndex(availableMinutes);
+                // need to check how many can be done within that hour
+
 
             }
         }
@@ -106,6 +146,22 @@ public class Schedule {
             backupVolunteerNeeded.put(i, false);
         }
     }
+    // Finds the index of the minimum value
+    // @param al - ArrayList in which to search
+    // @return index - returns the index of the minimum value
+    private int findMinIndex(ArrayList<Integer> al) {
+        int min = al.get(0);
+        int minIndex = 0;
+
+        for (int i = 1; i < al.size(); i++) {
+            if (al.get(i) < min) {
+                min = al.get(i);
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
     public static void main(String[] args) {
         // testing stuff
         ArrayList<Treatment> lonerTreatments = new ArrayList<>();
