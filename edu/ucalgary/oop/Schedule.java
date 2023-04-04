@@ -33,10 +33,14 @@ public class Schedule {
                 // if time is taken and available minutes is 0
                 if (tasks.get(startTime) != null && availableMinutes.get(startTime) == 0) {
                     // todo - GUI element which tells person to move a certain task
+                    continue;
                 }
                 // if time is taken but available minute is not 0, need to call backup volunteer
-                else if (tasks.get(startTime) != null) {
+                else if (availableMinutes.get(startTime) - treatment.getTask().getDURATION() <= 0)  {
                     setBackupNeeded(startTime, true);
+                    tasks.get(startTime).add(treatment);
+                    availableMinutes.put(startTime, availableMinutes.get(startTime) -
+                            treatment.getTask().getDURATION());
                 }
                 // else time is available
                 else {
@@ -44,6 +48,7 @@ public class Schedule {
                     if (availableMinutes.get(startTime) - treatment.getTask().getDURATION() < 0) {
                         // Not enough time left in the hour to do treatment
                         // todo - GUI element to tell person to move one of the tasks
+                        continue;
                     }
                     else {
                         // puts treatment into ArrayList of treatments which correspond to that hour
@@ -53,6 +58,9 @@ public class Schedule {
                     }
                 }
             }
+        }
+        for(int i = 0; i < 24; i++) {
+            System.out.println(tasks.get(i));
         }
         // schedules feeding
         scheduleFeedingAndCleaningTasks();
@@ -69,42 +77,52 @@ public class Schedule {
     // @param hour - hour in which to set the value for
     // @param needed - bool value needed to change
     public void setBackupNeeded(int hour, boolean needed) {
+        // checks if backup volunteer has already been called
+        for (int i = 0; i < hour; i++) {
+            if (getBackupNeeded(i)) {
+                return;
+            }
+        }
+        // if it reaches the end of the loop then it will set this as the first instance of the backup volunteer
         this.backupVolunteerNeeded.put(hour, needed);
+        // allows for backup volunteer to be considered in doing tasks
+        for (int i = hour; i < 24; i++) {
+            availableMinutes.put(i, availableMinutes.get(i) + 60);
+        }
     }
 
     // Finds all available time and schedules feeding and cleaning
     public void scheduleFeedingAndCleaningTasks() {
         // finds amount of each type of animal
         int amountOfCoyotes = 0;
-        for (Animal animal : this.animals) {
-            if (Objects.equals(animal.getType(), "coyote")) {
-                amountOfCoyotes++;
-            }
-        }
         int amountOfFoxs = 0;
-        for (Animal animal : this.animals) {
-            if (Objects.equals(animal.getType(), "fox")) {
-                amountOfFoxs++;
-            }
-        }
         int amountOfBeavers = 0;
-        for (Animal animal : this.animals) {
-            if (Objects.equals(animal.getType(), "beaver")) {
-                amountOfBeavers++;
-            }
-        }
         int amountOfPorcupines = 0;
-        for (Animal animal : this.animals) {
-            if (Objects.equals(animal.getType(), "porcupine")) {
-                amountOfPorcupines++;
-            }
-        }
         int amountOfRaccoons = 0;
+
+
         for (Animal animal : this.animals) {
-            if (Objects.equals(animal.getType(), "raccoon")) {
-                amountOfRaccoons++;
+            switch (animal.getType().toLowerCase()) {
+                case "coyote":
+                    amountOfCoyotes++;
+                    break;
+                case "fox":
+                    amountOfFoxs++;
+                    break;
+                case "porcupine":
+                    amountOfPorcupines++;
+                    break;
+                case "beaver":
+                    amountOfBeavers++;
+                    break;
+                case "raccoon":
+                    amountOfRaccoons++;
+                    break;
+                default:
             }
         }
+
+
         // coyotes first
         putAnimalFeedingIntoSchedule(ActiveHours.CREPUSCULAR, amountOfCoyotes, 10, "coyote");
         // foxes second
@@ -121,7 +139,7 @@ public class Schedule {
         for (Animal animal : this.animals) {
             // For every animal, schedules cleaning if the cage is not clean
             for (int i = 0; i < 24; i++) {
-                if (availableMinutes.get(i) >= 10) {
+                if (availableMinutes.get(i) >= 10 && animal.isCageCleaned()) {
                     Task cleaning = new Task(0, animal.getTimeToClean(), 24,
                             String.format("Cleaning %s's cage", animal.getName()));
                     Treatment cleaningTreatment = new Treatment(-1, i, cleaning, animal.getAnimalID());
@@ -130,43 +148,6 @@ public class Schedule {
                 }
             }
         }
-    }
-
-    // Recursively puts feeding tasks for all the animals into the schedule where there is room
-    // @param activeHours - ActiveHours object which contains the hours in which the animal is active
-    // @param amountOfAnimals - amount of animals of the same type
-    // @param prepTime - time it takes to prepare the food
-    // @param animalType - type of animal
-    private void putAnimalFeedingIntoSchedule(ActiveHours activeHours, int amountOfAnimals, int prepTime,
-                                              String animalType) {
-        // base case
-        if (amountOfAnimals == 0) {
-            return;
-        }
-        int hour = activeHours.feedingHours().get(0);
-        ArrayList<Integer> availableMinutes = new ArrayList<>();
-        // checks how much time is in each hour in nocturnal ActiveHours
-        availableMinutes.add(this.availableMinutes.get(hour));
-        availableMinutes.add(this.availableMinutes.get(hour + 1));
-        availableMinutes.add(this.availableMinutes.get(hour + 2));
-
-        int hourChosen = findMinIndex(availableMinutes);
-        // need to check how many can be done within that hour
-        int amountOfAnimalsThatCanBeFed = (this.availableMinutes.get(hourChosen) - prepTime) / 5;
-        if (amountOfAnimalsThatCanBeFed > amountOfAnimals) {
-            amountOfAnimalsThatCanBeFed = amountOfAnimals;
-        }
-        int timeTaken = prepTime + amountOfAnimalsThatCanBeFed * 5;
-        // adds feeding task to schedule
-        Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
-                amountOfAnimalsThatCanBeFed, animalType));
-        Treatment treatment = new Treatment(0, hourChosen, task, 0);
-        tasks.get(hourChosen).add(treatment);
-        amountOfAnimals -= amountOfAnimalsThatCanBeFed;
-        // updates available minutes
-        this.availableMinutes.put(hourChosen, this.availableMinutes.get(hourChosen) - timeTaken);
-        // calls function again to see if there are any more animals that need to be fed
-        putAnimalFeedingIntoSchedule(activeHours, amountOfAnimals, prepTime, animalType);
     }
 
     // Prints the schedule in a readable format and returns it as a string
@@ -188,15 +169,15 @@ public class Schedule {
                     Animal animal = animalMap.get(treatment.getAnimalID());
                     // if the task is a feeding task
                     if (treatment.getTaskID() == 0) {
-                        output.append(String.format(" * %s", treatment.getTask().getDescription()));
+                        output.append(String.format(" * %s\n", treatment.getTask().getDescription()));
                     }
                     // if the task is a cleaning task
                     else if (treatment.getTaskID() == -1) {
-                        output.append(String.format(" * %s (%s)", treatment.getTask().getDescription(), animal.getName()));
+                        output.append(String.format(" * %s\n", treatment.getTask().getDescription()));
                     }
                     // if the task is a medical task
                     else {
-                        output.append(String.format(" * %s (%s)", treatment.getTask().getDescription(), animal.getName()));
+                        output.append(String.format(" * %s (%s)\n", treatment.getTask().getDescription(), animal.getName()));
                     }
                 }
             }
@@ -216,10 +197,51 @@ public class Schedule {
 
     /** Helper functions **/
 
+    // Finds time to put feeding tasks in the schedule for all the animals into the schedule where there is room
+    // @param activeHours - ActiveHours object which contains the hours in which the animal is active
+    // @param amountOfAnimals - amount of animals of the same type
+    // @param prepTime - time it takes to prepare the food
+    // @param animalType - type of animal
+    private void putAnimalFeedingIntoSchedule(ActiveHours activeHours, int amountOfAnimals, int prepTime,
+                                              String animalType) {
+        int animalsLeft = amountOfAnimals;
+        while (animalsLeft > 0) {
+            int hour = activeHours.feedingHours().get(0);
+            ArrayList<Integer> availableMinutes = new ArrayList<>();
+            // checks how much time is in each hour in given ActiveHours
+            availableMinutes.add(this.availableMinutes.get(hour));
+            availableMinutes.add(this.availableMinutes.get(hour + 1));
+            availableMinutes.add(this.availableMinutes.get(hour + 2));
+
+            int hourChosen = findMinIndex(availableMinutes);
+            // need to check how many can be done within that hour
+            int amountOfAnimalsThatCanBeFed = (this.availableMinutes.get(hourChosen) - prepTime) / 5;
+            if (amountOfAnimalsThatCanBeFed < 0) {
+                amountOfAnimalsThatCanBeFed *= -1;
+            }
+            if (amountOfAnimalsThatCanBeFed > amountOfAnimals) {
+                amountOfAnimalsThatCanBeFed = amountOfAnimals;
+            }
+            int timeTaken = prepTime + amountOfAnimalsThatCanBeFed * 5;
+            // adds feeding task to schedule
+            Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
+                    amountOfAnimalsThatCanBeFed, animalType));
+            Treatment treatment = new Treatment(0, hourChosen, task, 0);
+            tasks.get(hourChosen).add(treatment);
+            // updates amount of animals
+            animalsLeft = animalsLeft - amountOfAnimalsThatCanBeFed;
+            if (animalsLeft > amountOfAnimals) {
+                break;
+            }
+            // updates available minutes
+            this.availableMinutes.put(hourChosen, this.availableMinutes.get(hourChosen) - timeTaken);
+        }
+    }
+
     // Sets all values for workingHours to null for every hour and available minutes in each hour as 60
     private void generateDefaultSchedule() {
         for (int i = 0; i < 24; i++) {
-            tasks.put(i, null);
+            tasks.put(i, new ArrayList<>());
             availableMinutes.put(i, 60);
             backupVolunteerNeeded.put(i, false);
         }
@@ -238,18 +260,5 @@ public class Schedule {
             }
         }
         return minIndex;
-    }
-
-    public static void main(String[] args) {
-        // testing stuff
-        ArrayList<Treatment> lonerTreatments = new ArrayList<>();
-        Task eyedrops = new Task(9, 25, 1, "Eyedrops");
-        lonerTreatments.add(new Treatment(9, 22, eyedrops, 1));
-
-        Coyote loner = new Coyote(1, "loner", lonerTreatments);
-        System.out.println(loner.getClass());
-        ArrayList<Animal> animals = new ArrayList<>();
-        animals.add(loner);
-
     }
 }

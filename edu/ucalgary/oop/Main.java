@@ -7,12 +7,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         try {
-            Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "root", "Root");
+            Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
             Statement stmt = connector.createStatement();
             ResultSet results = stmt.executeQuery("SELECT * FROM ANIMALS");
 
             ArrayList<Animal> animals = new ArrayList<>();
-            Map<Integer, Animal> animalMap = new HashMap<>();
+            HashMap<Integer, Animal> animalMap = new HashMap<>();
 
             while (results.next()) {
                 int animalID = results.getInt("AnimalID");
@@ -98,6 +98,9 @@ public class Main {
 
                 System.out.println();
             }
+            Schedule schedule = new Schedule(animals, animalMap);
+
+            //System.out.println(schedule.getFormattedSchedule());
             connector.close();
         } catch (SQLException e) {
             e.printStackTrace();
