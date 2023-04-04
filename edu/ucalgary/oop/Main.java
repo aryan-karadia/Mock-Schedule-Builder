@@ -26,23 +26,18 @@ public class Main {
 
                 switch (species) {
                     case "coyote":
-                        activeHours = ActiveHours.DIURNAL;
                         animal = new Coyote(animalID, nickname, careNeeded);
                         break;
                     case "fox":
-                        activeHours = ActiveHours.DIURNAL;
                         animal = new Fox(animalID, nickname, careNeeded);
                         break;
                     case "porcupine":
-                        activeHours = ActiveHours.DIURNAL;
                         animal = new Porcupine(animalID, nickname, careNeeded);
                         break;
                     case "beaver":
-                        activeHours = ActiveHours.DIURNAL;
                         animal = new Beaver(animalID, nickname, careNeeded);
                         break;
                     case "raccoon":
-                        activeHours = ActiveHours.DIURNAL;
                         animal = new Raccoon(animalID, nickname, careNeeded);
                         break;
                     default:
@@ -80,12 +75,9 @@ public class Main {
                 int startHour = treatmentResults.getInt("StartHour");
 
                 if (animalMap.containsKey(animalID) && taskMap.containsKey(taskID)) {
-                    Treatment treatment = new Treatment(taskID, startHour);
-                    treatments.add(treatment);
-
-                    // Set the task for the treatment
                     Task task = taskMap.get(taskID);
-                    treatment.setTask(task);
+                    Treatment treatment = new Treatment(taskID, startHour, task);
+                    treatments.add(treatment);
 
                     // Add the treatment to the corresponding animal's careNeeded list
                     Animal animal = animalMap.get(animalID);
