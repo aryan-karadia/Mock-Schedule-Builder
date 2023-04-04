@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Schedule {
-    private boolean backupVolunteerNeeded = false;
+    private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
     private ArrayList<Animal> animals;
     private HashMap<Integer, ArrayList<Treatment>> tasks = new HashMap<>(24);
 
@@ -28,7 +28,8 @@ public class Schedule {
                 }
                 // if time is taken but available minute is not 0, need to call backup volunteer
                 else if (tasks.get(startTime) != null) {
-                    setBackupNeeded(true);
+                    setBackupNeeded(startTime, true);
+
 
 
                 }
@@ -51,12 +52,18 @@ public class Schedule {
         scheduleFeedingAndCleaningTasks();
     }
 
-    public boolean getBackupNeeded() {
-        return this.backupVolunteerNeeded;
+    // gets backup for specified hour
+    // @param hour - checks hour specified if it needs a backup volunteer
+    // @return - returns value if backup volunteer is needed or not
+    public boolean getBackupNeeded(int hour) {
+        return this.backupVolunteerNeeded.get(hour);
     }
 
-    public void setBackupNeeded(boolean needed) {
-        this.backupVolunteerNeeded = needed;
+    // sets backup volunteer status for given hour
+    // @param hour - hour in which to set the value for
+    // @param needed - bool value needed to change
+    public void setBackupNeeded(int hour, boolean needed) {
+        this.backupVolunteerNeeded.put(hour, needed);
     }
 
     // Finds all available time and schedules feeding and cleaning
@@ -96,9 +103,11 @@ public class Schedule {
         for (int i = 0; i < 24; i++) {
             tasks.put(i, null);
             availableMinutes.put(i, 60);
+            backupVolunteerNeeded.put(i, false);
         }
     }
     public static void main(String[] args) {
+        // testing stuff
         ArrayList<Treatment> lonerTreatments = new ArrayList<>();
         Task eyedrops = new Task(9, 25, 1, "Eyedrops");
         lonerTreatments.add(new Treatment(9, 22, eyedrops));
