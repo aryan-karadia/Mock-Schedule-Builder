@@ -132,8 +132,7 @@ public class Schedule {
         }
     }
 
-    // For every hour in the activeHours feeding hours, finds the hour with the least amount of time left and schedules
-    // the animal to be fed until there is no more time left or no more animals to be fed
+    // Recursively puts feeding tasks for all the animals into the schedule where there is room
     // @param activeHours - ActiveHours object which contains the hours in which the animal is active
     // @param amountOfAnimals - amount of animals of the same type
     // @param prepTime - time it takes to prepare the food
@@ -159,13 +158,11 @@ public class Schedule {
         }
         int timeTaken = prepTime + amountOfAnimalsThatCanBeFed * 5;
         // adds feeding task to schedule
-        for (int i = 0; i < amountOfAnimalsThatCanBeFed; i++) {
-            Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
-                    amountOfAnimalsThatCanBeFed, animalType));
-            Treatment treatment = new Treatment(0, hourChosen, task, 0);
-            tasks.get(hourChosen).add(treatment);
-            amountOfAnimals -= amountOfAnimalsThatCanBeFed;
-        }
+        Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
+                amountOfAnimalsThatCanBeFed, animalType));
+        Treatment treatment = new Treatment(0, hourChosen, task, 0);
+        tasks.get(hourChosen).add(treatment);
+        amountOfAnimals -= amountOfAnimalsThatCanBeFed;
         // updates available minutes
         this.availableMinutes.put(hourChosen, this.availableMinutes.get(hourChosen) - timeTaken);
         // calls function again to see if there are any more animals that need to be fed
@@ -253,5 +250,6 @@ public class Schedule {
         System.out.println(loner.getClass());
         ArrayList<Animal> animals = new ArrayList<>();
         animals.add(loner);
+
     }
 }
