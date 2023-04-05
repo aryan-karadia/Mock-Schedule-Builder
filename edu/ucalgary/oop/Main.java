@@ -97,7 +97,7 @@ public class Main {
                 ArrayList<Treatment> treatments1 = animal.getCareNeeded();
                 for (Treatment treatment2 : treatments1) {
                     Task task = taskMap.get(treatment2.getTaskID());
-                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription());
+                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription() + " | Time: "+ treatment2.getStartTime());
                 }
 
                 System.out.println();
@@ -111,7 +111,6 @@ public class Main {
                 e.printStackTrace();
             }
             try {
-                assert schedule != null;
                 schedule.createScheduleFile();
             }
             catch (Exception e) {
