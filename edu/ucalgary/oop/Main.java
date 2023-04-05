@@ -7,12 +7,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         try {
-            Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "root", "Root");
+            Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
             Statement stmt = connector.createStatement();
             ResultSet results = stmt.executeQuery("SELECT * FROM ANIMALS");
 
             ArrayList<Animal> animals = new ArrayList<>();
-            Map<Integer, Animal> animalMap = new HashMap<>();
+            HashMap<Integer, Animal> animalMap = new HashMap<>();
 
             while (results.next()) {
                 int animalID = results.getInt("AnimalID");
@@ -41,7 +41,7 @@ public class Main {
                         animal = new Raccoon(animalID, nickname, careNeeded);
                         break;
                     default:
-                        // to set activeHours to something
+                        // to set activeHours to something but it doesn't matter
                         activeHours = ActiveHours.DIURNAL;
                         animal = new Orphan(animalID, nickname, activeHours, careNeeded, timeToFeed, timeToFeed, timeToFeed);
                         System.out.println("Unknown animal species: " + species);
@@ -76,12 +76,16 @@ public class Main {
 
                 if (animalMap.containsKey(animalID) && taskMap.containsKey(taskID)) {
                     Task task = taskMap.get(taskID);
-                    Treatment treatment = new Treatment(taskID, startHour, task);
+                    Treatment treatment = new Treatment(taskID, startHour, task, animalID);
                     treatments.add(treatment);
 
                     // Add the treatment to the corresponding animal's careNeeded list
                     Animal animal = animalMap.get(animalID);
                     animal.getCareNeeded().add(treatment);
+                    // if treatment has id of 1 then changes type of animal to orphan
+                    if (treatment.getTaskID() == 1) {
+                        animal.setType("Orphan");
+                    }
                 } else {
                     System.out.println("Invalid AnimalID or TaskID: " + animalID + ", " + taskID);
                 }
@@ -97,6 +101,22 @@ public class Main {
                 }
 
                 System.out.println();
+            }
+            Schedule schedule = null;
+            try {
+                schedule = new Schedule(animals, animalMap);
+            } catch (Exception e) {
+                System.err.println("Error creating schedule: " + e.getMessage());
+                System.exit(1);
+                e.printStackTrace();
+            }
+            try {
+                assert schedule != null;
+                schedule.createScheduleFile();
+            }
+            catch (Exception e) {
+                System.err.println("Error creating schedule file: " + e.getMessage());
+                System.exit(1);
             }
             connector.close();
         } catch (SQLException e) {
