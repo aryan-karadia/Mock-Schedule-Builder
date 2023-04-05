@@ -46,6 +46,8 @@ public class Schedule extends JFrame implements ActionListener {
                     }
                     if (previousHours.contains(true)) {
                         // Not enough time left in the hour to do treatment
+                        // print current start time
+                        System.out.println("Current Start Time: " + startTime);
                         GUIMoveTask(startTime, treatment);
                     }
                     else {
@@ -310,34 +312,40 @@ public class Schedule extends JFrame implements ActionListener {
 
     }
 
-    public void GUIMoveTask(int startTime, Treatment treatment){
-        JFrame frame = new JFrame("Moving a Task");
-        setSize(500,300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void GUIMoveTask(int startTime, Treatment treatment) {
+        JFrame errorframe = new JFrame();
+        errorframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        String message = "Not enough time left in the hour" + treatment.getStartTime() + "to do treatment: " + treatment.getTask().getDescription() +
+        String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +
                 "\nPlease enter a new start time (0-23) for this task:";
-        String newStartTimeStr = JOptionPane.showInputDialog(frame, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
 
-        // convert the new start time string to integer
         int newStartTime = -1;
-        try {
-            newStartTime = Integer.parseInt(newStartTimeStr);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
-        // check if the new start time is valid
-        if (newStartTime < 0 || newStartTime > 23) {
-            JOptionPane.showMessageDialog(frame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        while (true) {
+            String newStartTimeStr = JOptionPane.showInputDialog(errorframe, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
 
-        // check if the new start time has enough available minutes
-        if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
-            JOptionPane.showMessageDialog(frame, "The new start time does not have enough available minutes to do this task.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            // convert the new start time string to integer
+            try {
+                newStartTime = Integer.parseInt(newStartTimeStr);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;  // ask again for input
+            }
+
+            // check if the new start time is valid
+            if (newStartTime < 0 || newStartTime > 23) {
+                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+                continue;  // ask again for input
+            }
+
+            // check if the new start time has enough available minutes
+            if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
+                JOptionPane.showMessageDialog(errorframe, "The new start time does not have enough available minutes to do this task: " + treatment.getTask().getDescription(), "Error", JOptionPane.ERROR_MESSAGE);
+                continue;  // ask again for input
+            }
+
+            // if we get here, the input is valid, so break out of the loop
+            break;
         }
 
         // update the task start time and available minutes accordingly
@@ -354,12 +362,7 @@ public class Schedule extends JFrame implements ActionListener {
         // remove the task from its original time slot
         tasks.get(startTime).remove(treatment);
 
-        frame.setVisible(true);
-    }
-
-
-    public static void main(String[] args) {
-
+        errorframe.setVisible(true);
     }
 
 }
