@@ -1,10 +1,15 @@
 /**
- * This code defines the ActiveHours enum and has 3 constants, NOCTURNAL, DIURNAL, and CREPUSCULAR.
+ * This code defines the ActiveHours enum and has 3 constants, NOCTURNAL, 
+ * DIURNAL, and CREPUSCULAR.
  * The code starts by importing the "ArrayList" class from java.util.
- * The code then defines the "ActiveHours" enum and has 3 constants, NOCTURNAL, DIURNAL, and CREPUSCULAR.
- * The "NOCTURNAL" constant has a method named "feedingHours" that returns an ArrayList that contains the numbers 0, 1, and 2.
- * The "DIURNAL" constant has a method named "feedingHours" that returns an ArrayList that contains the numbers 8, 9, and 10.
- * The "CREPUSCULAR" constant has a method named "feedingHours" that returns an ArrayList that contains the numbers 19, 20 and 21.
+ * The code then defines the "ActiveHours" enum and has 3 constants, NOCTURNAL, 
+ * DIURNAL, and CREPUSCULAR.
+ * The "NOCTURNAL" constant has a method named "feedingHours" that returns an 
+ * ArrayList that contains the numbers 0, 1, and 2.
+ * The "DIURNAL" constant has a method named "feedingHours" that returns an 
+ * ArrayList that contains the numbers 8, 9, and 10.
+ * The "CREPUSCULAR" constant has a method named "feedingHours" that returns an 
+ * ArrayList that contains the numbers 19, 20 and 21.
  */
 
  package edu.ucalgary.oop;

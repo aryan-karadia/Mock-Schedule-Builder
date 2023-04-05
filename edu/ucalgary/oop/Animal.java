@@ -9,16 +9,21 @@
  * The first method is named "getAnimalID" and returns the "ANIMALID" value.
  * The second method is named "getType" and returns the "TYPE" value.
  * The third method is named "getName" and returns the "name" value.
- * The fourth method is named "setName" and sets the "name" value to the value of the "name" parameter.
+ * The fourth method is named "setName" and sets the "name" value to the value of 
+ * the "name" parameter.
  * The fifth method is named "getCareNeeded" and returns the "careNeeded" value.
- * The sixth method is named "setCareNeeded" and sets the "careNeeded" value to the value of the "care" parameter.
+ * The sixth method is named "setCareNeeded" and sets the "careNeeded" value to the 
+ * value of the "care" parameter.
  * The seventh method is named "getActiveHours" and returns the "ACTIVEHOURS" value.
  * The eighth method is named "getTimeToFeed" and returns the "timeToFeed" value.
- * The ninth method is named "setTimeToFeed" and sets the "timeToFeed" value to the value of the "timeToFeed" parameter.
+ * The ninth method is named "setTimeToFeed" and sets the "timeToFeed" value to the 
+ * value of the "timeToFeed" parameter.
  * The tenth method is named "isFed" and returns the "isFed" value.
- * The eleventh method is named "setFed" and sets the "isFed" value to the value of the "fed" parameter.
+ * The eleventh method is named "setFed" and sets the "isFed" value to the value of 
+ * the "fed" parameter.
  * The twelfth method is named "isCageCleaned" and returns the "cageCleaned" value.
- * The thirteenth method is named "setCageCleaned" and sets the "cageCleaned" value to the value of the "cleaned" parameter.
+ * The thirteenth method is named "setCageCleaned" and sets the "cageCleaned" value 
+ * to the value of the "cleaned" parameter.
  * The fourteenth method is named "isDueForFeeding" and returns a boolean value.
  * The fifteenth method is named "isDueForCleaning" and returns a boolean value.
  */
