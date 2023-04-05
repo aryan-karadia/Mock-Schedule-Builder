@@ -41,7 +41,7 @@ public class Main {
                         animal = new Raccoon(animalID, nickname, careNeeded);
                         break;
                     default:
-                        // to set activeHours to something
+                        // to set activeHours to something but it doesn't matter
                         activeHours = ActiveHours.DIURNAL;
                         animal = new Orphan(animalID, nickname, activeHours, careNeeded, timeToFeed, timeToFeed, timeToFeed);
                         System.out.println("Unknown animal species: " + species);
@@ -82,6 +82,10 @@ public class Main {
                     // Add the treatment to the corresponding animal's careNeeded list
                     Animal animal = animalMap.get(animalID);
                     animal.getCareNeeded().add(treatment);
+                    // if treatment has id of 1 then changes type of animal to orphan
+                    if (treatment.getTaskID() == 1) {
+                        animal.setType("Orphan");
+                    }
                 } else {
                     System.out.println("Invalid AnimalID or TaskID: " + animalID + ", " + taskID);
                 }
@@ -100,7 +104,7 @@ public class Main {
             }
             Schedule schedule = new Schedule(animals, animalMap);
 
-            //System.out.println(schedule.getFormattedSchedule());
+            System.out.println(schedule.getFormattedSchedule());
             connector.close();
         } catch (SQLException e) {
             e.printStackTrace();

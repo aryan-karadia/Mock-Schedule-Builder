@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 abstract class Animal {
     protected final int ANIMALID;
-    protected final String TYPE;
+    protected String type;
     protected String name;
     protected ArrayList<Treatment> careNeeded;
     protected final ActiveHours ACTIVEHOURS;
@@ -19,7 +19,7 @@ abstract class Animal {
                   ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) {
         // todo - validate input
         this.ANIMALID = animalID;
-        this.TYPE = type;
+        this.type = type;
         this.name = name;
         this.ACTIVEHOURS = activeHours;
         this.careNeeded = careNeeded;
@@ -34,7 +34,7 @@ abstract class Animal {
     }
     
     public String getType() {
-        return this.TYPE;
+        return this.type;
     }
     
     public String getName() {
@@ -43,6 +43,10 @@ abstract class Animal {
     
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     public ArrayList<Treatment> getCareNeeded() {

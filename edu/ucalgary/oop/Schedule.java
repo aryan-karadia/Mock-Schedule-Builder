@@ -3,6 +3,8 @@ import java.util.*;
 
 public class Schedule {
     private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
+
+    private HashMap<Integer, Integer> backupAvailableMinutes = new HashMap<>(24);
     private ArrayList<Animal> animals;
     private HashMap<Integer, Animal> animalMap = new HashMap<>();
 
@@ -30,37 +32,39 @@ public class Schedule {
             for (Treatment treatment : animal.getCareNeeded()) {
                 // Checks if time is available
                 int startTime = treatment.getStartTime();
-                // if time is taken and available minutes is 0
-                if (tasks.get(startTime) != null && availableMinutes.get(startTime) == 0) {
-                    // todo - GUI element which tells person to move a certain task
-                    continue;
-                }
-                // if time is taken but available minute is not 0, need to call backup volunteer
-                else if (availableMinutes.get(startTime) - treatment.getTask().getDURATION() <= 0)  {
-                    setBackupNeeded(startTime, true);
-                    tasks.get(startTime).add(treatment);
-                    availableMinutes.put(startTime, availableMinutes.get(startTime) -
-                            treatment.getTask().getDURATION());
-                }
-                // else time is available
-                else {
-                    // update available minutes for given hour
-                    if (availableMinutes.get(startTime) - treatment.getTask().getDURATION() < 0) {
+                // checks if there is enough time to do the treatment. If not enough time calls GUI else keeps checking
+                if ((availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime)) - treatment.getTask().getDURATION() < 0) {
+                    if(backupVolunteerNeeded.containsValue(true)) {
                         // Not enough time left in the hour to do treatment
                         // todo - GUI element to tell person to move one of the tasks
                         continue;
                     }
                     else {
-                        // puts treatment into ArrayList of treatments which correspond to that hour
+                        // calls backup volunteer
+                        setBackupNeeded(startTime, true);
                         tasks.get(startTime).add(treatment);
+                        treatment.setMinutesRemaining(availableMinutes.get(startTime));
+                    }
+                }
+                else {
+                    // puts treatment into ArrayList of treatments which correspond to that hour
+                    // needs to check if backup is being used
+                    if ((availableMinutes.get(startTime) - treatment.getTask().getDURATION() < 0)) {
+                        // backup is being used
+                        tasks.get(startTime).add(treatment);
+                        treatment.setMinutesRemaining(backupAvailableMinutes.get(startTime) - treatment.getTask().getDURATION());
+                        backupAvailableMinutes.put(startTime, backupAvailableMinutes.get(startTime) -
+                                treatment.getTask().getDURATION());
+                    }
+                    else {
+                        // no backup needed
+                        tasks.get(startTime).add(treatment);
+                        treatment.setMinutesRemaining(availableMinutes.get(startTime) - treatment.getTask().getDURATION());
                         availableMinutes.put(startTime, availableMinutes.get(startTime) -
                                 treatment.getTask().getDURATION());
                     }
                 }
             }
-        }
-        for(int i = 0; i < 24; i++) {
-            System.out.println(tasks.get(i));
         }
         // schedules feeding
         scheduleFeedingAndCleaningTasks();
@@ -77,17 +81,10 @@ public class Schedule {
     // @param hour - hour in which to set the value for
     // @param needed - bool value needed to change
     public void setBackupNeeded(int hour, boolean needed) {
-        // checks if backup volunteer has already been called
-        for (int i = 0; i < hour; i++) {
-            if (getBackupNeeded(i)) {
-                return;
-            }
-        }
-        // if it reaches the end of the loop then it will set this as the first instance of the backup volunteer
         this.backupVolunteerNeeded.put(hour, needed);
-        // allows for backup volunteer to be considered in doing tasks
+        // updating backup minutes
         for (int i = hour; i < 24; i++) {
-            availableMinutes.put(i, availableMinutes.get(i) + 60);
+            backupAvailableMinutes.put(i, 60);
         }
     }
 
@@ -138,14 +135,22 @@ public class Schedule {
 
         for (Animal animal : this.animals) {
             // For every animal, schedules cleaning if the cage is not clean
-            for (int i = 0; i < 24; i++) {
-                if (availableMinutes.get(i) >= 10 && animal.isCageCleaned()) {
-                    Task cleaning = new Task(0, animal.getTimeToClean(), 24,
-                            String.format("Cleaning %s's cage", animal.getName()));
-                    Treatment cleaningTreatment = new Treatment(-1, i, cleaning, animal.getAnimalID());
-                    tasks.get(i).add(cleaningTreatment);
-                    animal.setCageCleaned(true);
+            // finds the hour with the most available minutes
+            int hourChosen = 0;
+            for (Integer hour : availableMinutes.keySet()) {
+                if (availableMinutes.get(hour) > availableMinutes.get(hourChosen)) {
+                    hourChosen = hour;
                 }
+            }
+            // updates available minutes
+            if (!animal.isCageCleaned()) {
+                Task cleaning = new Task(0, animal.getTimeToClean(), 24,
+                        String.format("Cleaning %s's cage", animal.getName()));
+                Treatment cleaningTreatment = new Treatment(-1, hourChosen, cleaning, animal.getAnimalID());
+                cleaningTreatment.setMinutesRemaining(availableMinutes.get(hourChosen) - animal.getTimeToClean());
+                tasks.get(hourChosen).add(cleaningTreatment);
+                animal.setCageCleaned(true);
+                availableMinutes.put(hourChosen, availableMinutes.get(hourChosen) - animal.getTimeToClean());
             }
         }
     }
@@ -157,28 +162,28 @@ public class Schedule {
         for (int i = 0; i < 24; i++) {
             if (backupVolunteerNeeded.get(i)) {
                 output.append(String.format("%d:00 [+ Backup volunteer needed]\n", i));
-                continue;
             }
             else {
                 output.append(String.format("%d:00 \n", i));
             }
-            if (tasks.get(i) == null) {
-                output.append("No tasks scheduled");
+            if (tasks.get(i).isEmpty()) {
+                output.append(" *** No tasks scheduled ***");
             } else {
                 for (Treatment treatment : tasks.get(i)) {
                     Animal animal = animalMap.get(treatment.getAnimalID());
                     // if the task is a feeding task
                     if (treatment.getTaskID() == 0) {
-                        output.append(String.format(" * %s\n", treatment.getTask().getDescription()));
+                        output.append(String.format(" * %s\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
                     }
                     // if the task is a cleaning task
                     else if (treatment.getTaskID() == -1) {
-                        output.append(String.format(" * %s\n", treatment.getTask().getDescription()));
+                        output.append(String.format(" * %s\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
                     }
                     // if the task is a medical task
                     else {
-                        output.append(String.format(" * %s (%s)\n", treatment.getTask().getDescription(), animal.getName()));
+                        output.append(String.format(" * %s (%s)\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), animal.getName(), treatment.getMinutesRemaining()));
                     }
+                    output.append("\n");
                 }
             }
             output.append("\n");
@@ -213,12 +218,10 @@ public class Schedule {
             availableMinutes.add(this.availableMinutes.get(hour + 1));
             availableMinutes.add(this.availableMinutes.get(hour + 2));
 
-            int hourChosen = findMinIndex(availableMinutes);
+            int hourChosen = hour + findMaxIndex(availableMinutes);
             // need to check how many can be done within that hour
             int amountOfAnimalsThatCanBeFed = (this.availableMinutes.get(hourChosen) - prepTime) / 5;
-            if (amountOfAnimalsThatCanBeFed < 0) {
-                amountOfAnimalsThatCanBeFed *= -1;
-            }
+
             if (amountOfAnimalsThatCanBeFed > amountOfAnimals) {
                 amountOfAnimalsThatCanBeFed = amountOfAnimals;
             }
@@ -227,12 +230,10 @@ public class Schedule {
             Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
                     amountOfAnimalsThatCanBeFed, animalType));
             Treatment treatment = new Treatment(0, hourChosen, task, 0);
+            treatment.setMinutesRemaining(this.availableMinutes.get(hourChosen) - timeTaken);
             tasks.get(hourChosen).add(treatment);
             // updates amount of animals
             animalsLeft = animalsLeft - amountOfAnimalsThatCanBeFed;
-            if (animalsLeft > amountOfAnimals) {
-                break;
-            }
             // updates available minutes
             this.availableMinutes.put(hourChosen, this.availableMinutes.get(hourChosen) - timeTaken);
         }
@@ -244,21 +245,22 @@ public class Schedule {
             tasks.put(i, new ArrayList<>());
             availableMinutes.put(i, 60);
             backupVolunteerNeeded.put(i, false);
+            backupAvailableMinutes.put(i, 0);
         }
     }
     // Finds the index of the minimum value
     // @param al - ArrayList in which to search
     // @return index - returns the index of the minimum value
-    private int findMinIndex(ArrayList<Integer> al) {
-        int min = al.get(0);
-        int minIndex = 0;
+    private int findMaxIndex(ArrayList<Integer> al) {
+        int max = al.get(0);
+        int maxIndex = 0;
 
         for (int i = 1; i < al.size(); i++) {
-            if (al.get(i) < min) {
-                min = al.get(i);
-                minIndex = i;
+            if (al.get(i) > max) {
+                max = al.get(i);
+                maxIndex = i;
             }
         }
-        return minIndex;
+        return maxIndex;
     }
 }
