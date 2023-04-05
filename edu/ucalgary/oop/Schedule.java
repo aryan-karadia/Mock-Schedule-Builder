@@ -77,6 +77,10 @@ public class Schedule extends JFrame implements ActionListener {
         scheduleFeedingAndCleaningTasks();
     }
 
+    public Schedule() {
+
+    }
+
     // gets backup for specified hour
     // @param hour - checks hour specified if it needs a backup volunteer
     // @return - returns value if backup volunteer is needed or not
