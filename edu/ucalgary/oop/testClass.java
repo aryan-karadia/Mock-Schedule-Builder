@@ -1,3 +1,17 @@
+/*
+This code tests the inheritance of classes.
+The code starts by importing the packages it needs.
+The code then defines a testClass class.
+The class has a testInheritance method, a taskInheritanceRelationship method, a testAnimalCareNeededAssignment method, and a testAnimalCareNeededContents method.
+The testInheritance method tests whether or not an object can inherit from another object.
+The testInheritance method creates a coyote object and tests if it has inherited properties from the animal object.
+The taskInheritanceRelationship method tests whether or not an object can inherit properties from another object within its own object.
+The taskInheritanceRelationship method creates a task object and a treatment object and tests if the treatment object has inherited properties from the task object.
+The testAnimalCareNeededAssignment method tests if an array list has been assigned to an object.
+The testAnimalCareNeededAssignment method creates a coyote object and tests if it has the correct array list assigned to it.
+The testAnimalCareNeededContents method tests if an array list has been assigned to an object and if it contains the expected object.
+The testAnimalCareNeededContents method creates a coyote object and tests if it has the correct array list assigned to it and if the array list contains the expected object.
+*/
 package edu.ucalgary.oop;
 
 import static org.junit.Assert.*;
