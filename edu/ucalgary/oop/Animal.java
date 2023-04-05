@@ -33,57 +33,57 @@ abstract class Animal {
      * The unique ID of the animal.
      */
     protected final int ANIMALID;
-    
+
     /**
      * The type of the animal.
      */
-    protected final String TYPE;
-    
+    protected String type;
+
     /**
      * The name of the animal.
      */
     protected String name;
-    
+
     /**
      * The list of treatments that the animal requires.
      */
     protected ArrayList<Treatment> careNeeded;
-    
+
     /**
      * The active hours during which the animal is awake and active.
      */
     protected final ActiveHours ACTIVEHOURS;
-    
+
     /**
      * The possible feeding hours of the animal based on its active hours.
      */
     protected final ArrayList<Integer> POSSIBLEFEEDINGHOURS;
-    
+
     /**
      * The time it takes to feed the animal.
      */
     protected int timeToFeed;
-    
+
     /**
      * The time it takes to clean the animal's cage.
      */
     protected int timeToClean;
-    
+
     /**
      * Flag indicating whether the animal has been fed.
      */
     protected boolean isFed = false;
-    
+
     /**
      * Flag indicating whether the animal's cage has been cleaned.
      */
     protected boolean cageCleaned = false;
-    
+
     /**
      * The time it takes to prepare food for the animal.
      */
     protected final int FOODPREPTIME;
-    
+
     /**
      * Flag indicating whether the animal's food has been prepared.
      */
@@ -104,7 +104,7 @@ abstract class Animal {
                   ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) {
         // todo - validate input
         this.ANIMALID = animalID;
-        this.TYPE = type;
+        this.type = type;
         this.name = name;
         this.ACTIVEHOURS = activeHours;
         this.careNeeded = careNeeded;
@@ -127,7 +127,7 @@ abstract class Animal {
      * @return the type of the animal.
      */
     public String getType() {
-        return this.TYPE;
+        return this.type;
     }
     
     /**
@@ -145,7 +145,11 @@ abstract class Animal {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     /**
      * Returns the list of treatments that the animal requires.
      * @return the list of treatments that the animal requires.
@@ -222,8 +226,8 @@ abstract class Animal {
      * Returns whether the food for the animal has been prepared or not.
      * @return true if the food for the animal has been prepared, false otherwise.
      */
-    public boolean getIsFoodPrepped() { 
-        return this.isFoodPrepped; 
+    public boolean getIsFoodPrepped() {
+        return this.isFoodPrepped;
     }
 
     /**
@@ -232,6 +236,13 @@ abstract class Animal {
      */
     public void setIsFoodPrepped(boolean isFoodPrepped) {
         this.isFoodPrepped = isFoodPrepped;
+    }
+    public int getTimeToClean() {
+        return this.timeToClean;
+    }
+
+    public int getFoodPrepTime() {
+        return this.FOODPREPTIME;
     }
 
     /**
