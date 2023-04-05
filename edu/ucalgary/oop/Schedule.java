@@ -41,7 +41,7 @@ public class Schedule extends JFrame implements ActionListener {
                 // checks if there is enough time to do the treatment. If not enough time calls GUI else keeps checking
                 if ((availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime)) - treatment.getTask().getDURATION() < 0) {
                     HashSet<Boolean> previousHours = new HashSet<>();
-                    for (int i = 0; i < startTime; i++) {
+                    for (int i = 0; i < startTime + 1; i++) {
                         previousHours.add(this.backupVolunteerNeeded.get(i));
                     }
                     if (previousHours.contains(true)) {
@@ -51,8 +51,11 @@ public class Schedule extends JFrame implements ActionListener {
                     else {
                         // calls backup volunteer
                         setBackupNeeded(startTime, true);
+                        System.out.println("backup volunteer needed for task " + treatment.getTask().getDescription() + " at " + startTime + "");
                         tasks.get(startTime).add(treatment);
-                        treatment.setMinutesRemaining(availableMinutes.get(startTime));
+                        treatment.setMinutesRemaining(availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime) - treatment.getTask().getDURATION());
+                        backupAvailableMinutes.put(startTime, backupAvailableMinutes.get(startTime) -
+                                treatment.getTask().getDURATION());
                     }
                 }
                 else {
@@ -61,14 +64,14 @@ public class Schedule extends JFrame implements ActionListener {
                     if ((availableMinutes.get(startTime) - treatment.getTask().getDURATION() < 0)) {
                         // backup is being used
                         tasks.get(startTime).add(treatment);
-                        treatment.setMinutesRemaining(backupAvailableMinutes.get(startTime) - treatment.getTask().getDURATION());
+                        treatment.setMinutesRemaining(availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime) - treatment.getTask().getDURATION());
                         backupAvailableMinutes.put(startTime, backupAvailableMinutes.get(startTime) -
                                 treatment.getTask().getDURATION());
                     }
                     else {
                         // no backup needed
                         tasks.get(startTime).add(treatment);
-                        treatment.setMinutesRemaining(availableMinutes.get(startTime) - treatment.getTask().getDURATION());
+                        treatment.setMinutesRemaining(availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime) - treatment.getTask().getDURATION());
                         availableMinutes.put(startTime, availableMinutes.get(startTime) -
                                 treatment.getTask().getDURATION());
                     }
@@ -97,7 +100,7 @@ public class Schedule extends JFrame implements ActionListener {
         this.backupVolunteerNeeded.put(hour, needed);
         // updating backup minutes
         for (int i = hour; i < 24; i++) {
-            backupAvailableMinutes.put(i, 60);
+            backupAvailableMinutes.put(i, backupAvailableMinutes.get(i) + 60);
         }
     }
 
@@ -187,15 +190,15 @@ public class Schedule extends JFrame implements ActionListener {
                     Animal animal = animalMap.get(treatment.getAnimalID());
                     // if the task is a feeding task
                     if (treatment.getTaskID() == 0) {
-                        output.append(String.format(" * %s", treatment.getTask().getDescription()));
+                        output.append(String.format(" * %s\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
                     }
                     // if the task is a cleaning task
                     else if (treatment.getTaskID() == -1) {
-                        output.append(String.format(" * %s", treatment.getTask().getDescription()));
+                        output.append(String.format(" * %s\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
                     }
                     // if the task is a medical task
                     else {
-                        output.append(String.format(" * %s (%s)", treatment.getTask().getDescription(), animal.getName()));
+                        output.append(String.format(" * %s (%s)\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), animal.getName(), treatment.getMinutesRemaining()));
                     }
                     output.append("\n");
                 }
@@ -267,7 +270,7 @@ public class Schedule extends JFrame implements ActionListener {
             Task task = new Task(0, timeTaken, 24, String.format("feeding %d %ss",
                     amountOfAnimalsThatCanBeFed, animalType));
             Treatment treatment = new Treatment(0, hourChosen, task, 0);
-            treatment.setMinutesRemaining(this.availableMinutes.get(hourChosen) - timeTaken);
+            treatment.setMinutesRemaining(this.availableMinutes.get(hourChosen) + this.backupAvailableMinutes.get(hourChosen) - timeTaken);
             tasks.get(hourChosen).add(treatment);
             // updates amount of animals
             animalsLeft = animalsLeft - amountOfAnimalsThatCanBeFed;
