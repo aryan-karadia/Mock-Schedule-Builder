@@ -1,10 +1,45 @@
+/*
+This code manages a schedule for an animal care center.
+The code starts by creating a connection to the database.
+The code then creates a statement, a result set, and a result set.
+The code then creates an array list, a hash map, and a hash map.
+The code then enters a while loop that will run as long as there are more rows in the result set.
+The code will then get the values at each column of the result set and store them in defined variables.
+The code will then create an animal object and add it to the array list and the hash map.
+The code then enters another while loop that will run as long as there are more rows in the result set.
+The code will then get the values at each column of the result set and store them in defined variables.
+The code will then create a task object and add it to the array list and the hash map.
+The code then enters another while loop that will run as long as there are more rows in the result set.
+The code will then get the values at each column of the result set and store them in defined variables.
+The code will then create a treatment object and add it to the array list.
+The code then enters another while loop that will run as long as there are more rows in the result set.
+The code will then get the values at each column of the result set and store them in defined variables.
+The code will then create a treatment object and add it to the array list.
+The code will then add the treatment to the corresponding animal's careNeeded list.
+The code then enters a for loop that will run as long as there are more animals in the array list.
+The code will then print the animal ID and the animal nickname.
+The code will then print the care needed for the animal.
+The code will then create a schedule object and catch any errors.
+The code will then create a schedule file and catch any errors.
+The code will then close the connection.
+*/
 package edu.ucalgary.oop;
 
 import java.sql.*;
 import java.util.*;
 
-
+/**
+ * The Main class is responsible for connecting to the EWR database, retrieving animal and task data,
+ * creating Animal and Task objects, and ultimately creating a schedule for the animals.
+ */
 public class Main {
+
+    /**
+     * The main method connects to the EWR database, retrieves animal and task data, creates Animal and Task
+     * objects, and ultimately creates a schedule for the animals.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         try {
             Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
