@@ -102,9 +102,22 @@ public class Main {
 
                 System.out.println();
             }
-            Schedule schedule = new Schedule(animals, animalMap);
-
-            System.out.println(schedule.getFormattedSchedule());
+            Schedule schedule = null;
+            try {
+                schedule = new Schedule(animals, animalMap);
+            } catch (Exception e) {
+                System.err.println("Error creating schedule: " + e.getMessage());
+                System.exit(1);
+                e.printStackTrace();
+            }
+            try {
+                assert schedule != null;
+                schedule.createScheduleFile();
+            }
+            catch (Exception e) {
+                System.err.println("Error creating schedule file: " + e.getMessage());
+                System.exit(1);
+            }
             connector.close();
         } catch (SQLException e) {
             e.printStackTrace();

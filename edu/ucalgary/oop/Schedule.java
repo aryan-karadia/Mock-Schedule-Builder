@@ -1,5 +1,7 @@
 package edu.ucalgary.oop;
+import java.time.LocalDate;
 import java.util.*;
+import java.io.*;
 
 public class Schedule {
     private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
@@ -159,6 +161,7 @@ public class Schedule {
     // @return - String representation of the schedule
     public String getFormattedSchedule() {
         StringBuilder output = new StringBuilder();
+        output.append("Schedule for " + LocalDate.now() + ":\n" );
         for (int i = 0; i < 24; i++) {
             if (backupVolunteerNeeded.get(i)) {
                 output.append(String.format("%d:00 [+ Backup volunteer needed]\n", i));
@@ -173,15 +176,15 @@ public class Schedule {
                     Animal animal = animalMap.get(treatment.getAnimalID());
                     // if the task is a feeding task
                     if (treatment.getTaskID() == 0) {
-                        output.append(String.format(" * %s\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
+                        output.append(String.format(" * %s", treatment.getTask().getDescription()));
                     }
                     // if the task is a cleaning task
                     else if (treatment.getTaskID() == -1) {
-                        output.append(String.format(" * %s\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), treatment.getMinutesRemaining()));
+                        output.append(String.format(" * %s", treatment.getTask().getDescription()));
                     }
                     // if the task is a medical task
                     else {
-                        output.append(String.format(" * %s (%s)\t\t\t\tMinutes Remaining: %d", treatment.getTask().getDescription(), animal.getName(), treatment.getMinutesRemaining()));
+                        output.append(String.format(" * %s (%s)", treatment.getTask().getDescription(), animal.getName()));
                     }
                     output.append("\n");
                 }
@@ -192,8 +195,31 @@ public class Schedule {
     }
 
     // Creates a file with the schedule in it
-    public void createScheduleFile() {
+    public void createScheduleFile(){
+        Formatter output = null;
 
+        try {
+            output = new Formatter("schedule.txt");
+        }
+        catch (SecurityException e) {
+            System.err.println("You do not have write access to this file.");
+            System.exit(1);
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("Error opening the file.");
+            System.exit(1);
+        }
+
+        try {
+            output.format("%s", getFormattedSchedule());
+        }
+        catch (FormatterClosedException e) {
+            System.err.println("Error writing to file.");
+            return;
+        }
+        finally {
+            output.close();
+        }
     }
 
     public ArrayList<Animal> getAnimals() {
