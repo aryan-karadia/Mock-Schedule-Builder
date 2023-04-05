@@ -2,16 +2,20 @@ package edu.ucalgary.oop;
 import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
+import java.util.Map;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
+import java.awt.*;
 
-public class Schedule {
+
+public class Schedule extends JFrame implements ActionListener {
     private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
-
     private HashMap<Integer, Integer> backupAvailableMinutes = new HashMap<>(24);
     private ArrayList<Animal> animals;
     private HashMap<Integer, Animal> animalMap = new HashMap<>();
-
     private HashMap<Integer, ArrayList<Treatment>> tasks = new HashMap<>(24);
-
     private HashMap<Integer, Integer> availableMinutes = new HashMap<>(24);
     private ArrayList<Integer> animalsNotFed = new ArrayList<>();
 
@@ -39,6 +43,7 @@ public class Schedule {
                     if(backupVolunteerNeeded.containsValue(true)) {
                         // Not enough time left in the hour to do treatment
                         // todo - GUI element to tell person to move one of the tasks
+                        GUIMoveTask(startTime, treatment);
                         continue;
                     }
                     else {
@@ -70,6 +75,10 @@ public class Schedule {
         }
         // schedules feeding
         scheduleFeedingAndCleaningTasks();
+    }
+
+    public Schedule() {
+
     }
 
     // gets backup for specified hour
@@ -289,4 +298,63 @@ public class Schedule {
         }
         return maxIndex;
     }
+
+    /** GUI functions **/
+    public void actionPerformed(ActionEvent event){
+
+
+    }
+
+    public void GUIMoveTask(int startTime, Treatment treatment){
+        JFrame frame = new JFrame("Moving a Task");
+        setSize(500,300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        String message = "Not enough time left in the hour to do treatment: " + treatment.getTask().getDescription() +
+                "\nPlease enter a new start time (0-23) for this task:";
+        String newStartTimeStr = JOptionPane.showInputDialog(frame, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
+
+        // convert the new start time string to integer
+        int newStartTime = -1;
+        try {
+            newStartTime = Integer.parseInt(newStartTimeStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // check if the new start time is valid
+        if (newStartTime < 0 || newStartTime > 23) {
+            JOptionPane.showMessageDialog(frame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // check if the new start time has enough available minutes
+        if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
+            JOptionPane.showMessageDialog(frame, "The new start time does not have enough available minutes to do this task.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // update the task start time and available minutes accordingly
+        if ((availableMinutes.get(newStartTime) - treatment.getTask().getDURATION() < 0)) {
+            tasks.get(newStartTime).add(treatment);
+            treatment.setMinutesRemaining(backupAvailableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
+            backupAvailableMinutes.put(newStartTime, backupAvailableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
+        } else {
+            tasks.get(newStartTime).add(treatment);
+            treatment.setMinutesRemaining(availableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
+            availableMinutes.put(newStartTime, availableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
+        }
+
+        // remove the task from its original time slot
+        tasks.get(startTime).remove(treatment);
+
+        frame.setVisible(true);
+    }
+
+
+    public static void main(String[] args) {
+
+    }
+
 }
