@@ -40,11 +40,13 @@ public class Schedule extends JFrame implements ActionListener {
                 int startTime = treatment.getStartTime();
                 // checks if there is enough time to do the treatment. If not enough time calls GUI else keeps checking
                 if ((availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime)) - treatment.getTask().getDURATION() < 0) {
-                    if(backupVolunteerNeeded.containsValue(true)) {
+                    HashSet<Boolean> previousHours = new HashSet<>();
+                    for (int i = 0; i < startTime; i++) {
+                        previousHours.add(this.backupVolunteerNeeded.get(i));
+                    }
+                    if (previousHours.contains(true)) {
                         // Not enough time left in the hour to do treatment
-                        // todo - GUI element to tell person to move one of the tasks
                         GUIMoveTask(startTime, treatment);
-                        continue;
                     }
                     else {
                         // calls backup volunteer
@@ -310,7 +312,7 @@ public class Schedule extends JFrame implements ActionListener {
         setSize(500,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        String message = "Not enough time left in the hour to do treatment: " + treatment.getTask().getDescription() +
+        String message = "Not enough time left in the hour" + treatment.getStartTime() + "to do treatment: " + treatment.getTask().getDescription() +
                 "\nPlease enter a new start time (0-23) for this task:";
         String newStartTimeStr = JOptionPane.showInputDialog(frame, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
 
