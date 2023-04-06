@@ -118,4 +118,79 @@ public class testClass {
         Schedule schedule = new Schedule(animals, animalMap);
         assertTrue("Incorrect logic in getBackupNeeded",schedule.getBackupNeeded(3));
     }
+    @Test
+    public void generatingNewSchedule() {
+    	Schedule schedule = new Schedule();
+    	String expectedSchedule = "Schedule for 2023-04-06:\n" +
+    			"0:00 \n *** No tasks scheduled ***\n" +
+    			"1:00 \n *** No tasks scheduled ***\n" +
+    			"2:00 \n *** No tasks scheduled ***\n" +
+    			"3:00 \n *** No tasks scheduled ***\n" +
+    			"4:00 \n *** No tasks scheduled ***\n" +
+    			"5:00 \n *** No tasks scheduled ***\n" +
+    			"6:00 \n *** No tasks scheduled ***\n" +
+    			"7:00 \n *** No tasks scheduled ***\n" +
+    			"8:00 \n *** No tasks scheduled ***\n" +
+    			"9:00 \n *** No tasks scheduled ***\n" +
+    			"10:00 \n *** No tasks scheduled ***\n" +
+    			"11:00 \n *** No tasks scheduled ***\n" +
+    			"12:00 \n *** No tasks scheduled ***\n" +
+    			"13:00 \n *** No tasks scheduled ***\n" +
+    			"14:00 \n *** No tasks scheduled ***\n" +
+    			"15:00 \n *** No tasks scheduled ***\n" +
+    			"16:00 \n *** No tasks scheduled ***\n" +
+    			"17:00 \n *** No tasks scheduled ***\n" +
+    			"18:00 \n *** No tasks scheduled ***\n" +
+    			"19:00 \n *** No tasks scheduled ***\n" +
+    			"20:00 \n *** No tasks scheduled ***\n" +
+    			"21:00 \n *** No tasks scheduled ***\n" +
+    			"22:00 \n *** No tasks scheduled ***\n" +
+    			"23:00 \n *** No tasks scheduled ***\n";
+    	assertEquals("New Schedule did not properly initilize",schedule.getFormattedSchedule(),expectedSchedule);
+    }
+    // Test that each animals cage is cleaned that day
+    @Test
+    public void cageCleanTest() {
+        ArrayList<Treatment> careNeeded = new ArrayList<>();
+        Task task1 = new Task(1, 30, 3, "Grooming");
+        Treatment treatment1 = new Treatment(1, 3, task1,1);
+
+        careNeeded.add(treatment1);
+
+        
+        Coyote animal1 = new Coyote(1, "Jared", careNeeded);
+        ArrayList<Animal> animals = new ArrayList<>();
+        HashMap<Integer, Animal> animalMap = new HashMap<>();
+        animals.add(animal1);
+        animalMap.put(animal1.getAnimalID(), animal1);
+        Schedule schedule = new Schedule(animals, animalMap);
+        boolean testContains = false;
+        if (schedule.getFormattedSchedule().contains("Cleaning Jared's cage")) {
+        	testContains = true;
+        }
+        assertTrue("Daily cage cleaning not implemented",testContains);
+
+    }
+    // Testing if feeding time is initialized when animals added to schedule
+    @Test
+    public void feedingTimeInitialized() {
+        ArrayList<Treatment> careNeeded = new ArrayList<>();
+        Task task1 = new Task(1, 30, 3, "Grooming");
+        Treatment treatment1 = new Treatment(1, 3, task1,1);
+
+        careNeeded.add(treatment1);
+
+        
+        Coyote animal1 = new Coyote(1, "Jared", careNeeded);
+        ArrayList<Animal> animals = new ArrayList<>();
+        HashMap<Integer, Animal> animalMap = new HashMap<>();
+        animals.add(animal1);
+        animalMap.put(animal1.getAnimalID(), animal1);
+        Schedule schedule = new Schedule(animals, animalMap);
+        boolean testContains = false;
+        if (schedule.getFormattedSchedule().contains("feeding 1 coyotes")) {
+        	testContains = true;
+        }
+        assertTrue("Feeding time not initialized",testContains);
+    }
 }
