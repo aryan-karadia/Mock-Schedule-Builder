@@ -84,7 +84,9 @@ public class Schedule extends JFrame implements ActionListener {
         scheduleFeedingAndCleaningTasks();
     }
 
+    // default constructor which calls a to generate an empty schedule
     public Schedule() {
+       generateDefaultSchedule();
 
     }
 
