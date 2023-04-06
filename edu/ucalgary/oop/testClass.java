@@ -39,17 +39,65 @@ public class testClass {
         assertEquals("Animal food prep time mismatch", 10, animal1.FOODPREPTIME);
         assertEquals("Animal time to clean mismatch", 5, animal1.timeToClean);
 	}
+	// testing if Porcupine extends animal
+	@Test
+	public void testPorcupine() {
+		ArrayList<Treatment> careNeeded = new ArrayList<>();
+		Porcupine animal1 = new Porcupine(1, "Jared", careNeeded);
+
+        // Test if the animal object is created and coyote can access method
+        assertEquals("Animal ID mismatch", 1, animal1.getAnimalID());
+        assertEquals("Animal type mismatch", "Porcupine", animal1.getType());
+        assertEquals("Animal name mismatch", "Jared", animal1.getName());
+        assertEquals("Animal active hours mismatch", ActiveHours.CREPUSCULAR, animal1.getActiveHours());
+        assertEquals("Animal care needed mismatch", careNeeded, animal1.getCareNeeded());
+        assertEquals("Animal time to feed mismatch", 5, animal1.getTimeToFeed());
+        assertEquals("Animal food prep time mismatch", 0, animal1.FOODPREPTIME);
+        assertEquals("Animal time to clean mismatch", 10, animal1.timeToClean);
+	}
+	// testing if Raccoon extends animal
+	@Test
+	public void testRaccoon() {
+		ArrayList<Treatment> careNeeded = new ArrayList<>();
+		Raccoon animal1 = new Raccoon(1, "Jared", careNeeded);
+
+        // Test if the animal object is created and coyote can access method
+        assertEquals("Animal ID mismatch", 1, animal1.getAnimalID());
+        assertEquals("Animal type mismatch", "Raccoon", animal1.getType());
+        assertEquals("Animal name mismatch", "Jared", animal1.getName());
+        assertEquals("Animal active hours mismatch", ActiveHours.NOCTURNAL, animal1.getActiveHours());
+        assertEquals("Animal care needed mismatch", careNeeded, animal1.getCareNeeded());
+        assertEquals("Animal time to feed mismatch", 5, animal1.getTimeToFeed());
+        assertEquals("Animal food prep time mismatch", 0, animal1.FOODPREPTIME);
+        assertEquals("Animal time to clean mismatch", 5, animal1.timeToClean);
+	}
+	// testing if Beaver extends animal
+	@Test
+	public void testBeaver() {
+		ArrayList<Treatment> careNeeded = new ArrayList<>();
+		Beaver animal1 = new Beaver(1, "Jared", careNeeded);
+
+        // Test if the animal object is created and coyote can access method
+        assertEquals("Animal ID mismatch", 1, animal1.getAnimalID());
+        assertEquals("Animal type mismatch", "Beaver", animal1.getType());
+        assertEquals("Animal name mismatch", "Jared", animal1.getName());
+        assertEquals("Animal active hours mismatch", ActiveHours.DIURNAL, animal1.getActiveHours());
+        assertEquals("Animal care needed mismatch", careNeeded, animal1.getCareNeeded());
+        assertEquals("Animal time to feed mismatch", 5, animal1.getTimeToFeed());
+        assertEquals("Animal food prep time mismatch", 0, animal1.FOODPREPTIME);
+        assertEquals("Animal time to clean mismatch", 5, animal1.timeToClean);
+	}
+    // Test if the treatment object is created with the correct properties
+    // Test if the task object is assigned to the treatment object correctly
     @Test
     public void taskInheritanceRelationship() {
         Task task1 = new Task(1, 5, 3, "Grooming");
         Treatment treatment1 = new Treatment(1, 3, task1,1);
 
-        // Test if the treatment object is created with the correct properties
         assertEquals("TaskID mismatch",1, treatment1.getTaskID());
         assertEquals("Start time mismatch",3, treatment1.getStartTime());
         assertNotNull("Null Task",treatment1.getTask());
 
-        // Test if the task object is assigned to the treatment object correctly
         assertEquals("TaskID mismatch",task1.getID(), treatment1.getTask().getID());
         assertEquals("Task Duration mismatch",task1.getDURATION(), treatment1.getTask().getDURATION());
         assertEquals("Task time window mismatch",task1.getTimeWindow(), treatment1.getTask().getTimeWindow());
@@ -118,6 +166,7 @@ public class testClass {
         Schedule schedule = new Schedule(animals, animalMap);
         assertTrue("Incorrect logic in getBackupNeeded",schedule.getBackupNeeded(3));
     }
+    // testing blank schedule
     @Test
     public void generatingNewSchedule() {
     	Schedule schedule = new Schedule();
