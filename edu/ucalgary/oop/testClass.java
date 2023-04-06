@@ -17,7 +17,9 @@ package edu.ucalgary.oop;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class testClass {
@@ -28,48 +30,48 @@ public class testClass {
         Coyote animal1 = new Coyote(1, "Jared", careNeeded);
 
         // Test if the animal object is created and coyote can access method
-        assertEquals(1, animal1.getAnimalID());
-        assertEquals("Coyote", animal1.getType());
-        assertEquals("Jared", animal1.getName());
-        assertEquals(ActiveHours.CREPUSCULAR, animal1.getActiveHours());
-        assertEquals(careNeeded, animal1.getCareNeeded());
-        assertEquals(5, animal1.getTimeToFeed());
-        assertEquals(10, animal1.FOODPREPTIME);
-        assertEquals(5, animal1.timeToClean);
+        assertEquals("Animal ID mismatch", 1, animal1.getAnimalID());
+        assertEquals("Animal type mismatch", "Coyote", animal1.getType());
+        assertEquals("Animal name mismatch", "Jared", animal1.getName());
+        assertEquals("Animal active hours mismatch", ActiveHours.CREPUSCULAR, animal1.getActiveHours());
+        assertEquals("Animal care needed mismatch", careNeeded, animal1.getCareNeeded());
+        assertEquals("Animal time to feed mismatch", 5, animal1.getTimeToFeed());
+        assertEquals("Animal food prep time mismatch", 10, animal1.FOODPREPTIME);
+        assertEquals("Animal time to clean mismatch", 5, animal1.timeToClean);
 	}
     @Test
     public void taskInheritanceRelationship() {
         Task task1 = new Task(1, 5, 3, "Grooming");
-        Treatment treatment1 = new Treatment(1, 3, task1);
+        Treatment treatment1 = new Treatment(1, 3, task1,1);
 
         // Test if the treatment object is created with the correct properties
-        assertEquals(1, treatment1.getTaskID());
-        assertEquals(3, treatment1.getStartTime());
-        assertNotNull(treatment1.getTask());
+        assertEquals("TaskID mismatch",1, treatment1.getTaskID());
+        assertEquals("Start time mismatch",3, treatment1.getStartTime());
+        assertNotNull("Null Task",treatment1.getTask());
 
         // Test if the task object is assigned to the treatment object correctly
-        assertEquals(task1.getID(), treatment1.getTask().getID());
-        assertEquals(task1.getDURATION(), treatment1.getTask().getDURATION());
-        assertEquals(task1.getTimeWindow(), treatment1.getTask().getTimeWindow());
-        assertEquals(task1.getDescription(), treatment1.getTask().getDescription());
+        assertEquals("TaskID mismatch",task1.getID(), treatment1.getTask().getID());
+        assertEquals("Task Duration mismatch",task1.getDURATION(), treatment1.getTask().getDURATION());
+        assertEquals("Task time window mismatch",task1.getTimeWindow(), treatment1.getTask().getTimeWindow());
+        assertEquals("Description mismatch",task1.getDescription(), treatment1.getTask().getDescription());
     }
     // Test if the animal object has the correct careNeeded list assigned
     @Test
     public void testAnimalCareNeededAssignment() {
         ArrayList<Treatment> careNeeded = new ArrayList<>();
         Coyote animal1 = new Coyote(1, "Jared", careNeeded);
-        assertEquals(careNeeded, animal1.getCareNeeded());
+        assertEquals("Incorrect careNeeded was returned",careNeeded, animal1.getCareNeeded());
     }
     // Test if the animal object's careNeeded list contains the expected Treatment object
     @Test
     public void testAnimalCareNeededContents() {
         Task task1 = new Task(1, 5, 3, "Grooming");
-        Treatment treatment1 = new Treatment(1, 3, task1);
+        Treatment treatment1 = new Treatment(1, 3, task1,1);
         ArrayList<Treatment> careNeeded = new ArrayList<>();
         careNeeded.add(treatment1);
         Coyote animal1 = new Coyote(1, "Jared", careNeeded);
-        assertEquals(1, animal1.getCareNeeded().size());
-        assertSame(treatment1, animal1.getCareNeeded().get(0));
+        assertEquals("Unexpected amount of treatments",1, animal1.getCareNeeded().size());
+        assertSame("Incorrect first treatment",treatment1, animal1.getCareNeeded().get(0));
     }
     // Test if the enum object has the correct feeding hours 
     @Test
@@ -86,7 +88,34 @@ public class testClass {
         expectedFeedingHours.add(20);
         expectedFeedingHours.add(21);
 
-        assertEquals(expectedFeedingHours, animal1.getActiveHours().feedingHours());
+        assertEquals("Enum class gave wrong active feeding hours",expectedFeedingHours, animal1.getActiveHours().feedingHours());
     }
 
+    @Test
+    public void testBackupVol() {
+        ArrayList<Treatment> careNeeded = new ArrayList<>();
+        Task task1 = new Task(1, 30, 3, "Grooming");
+        Treatment treatment1 = new Treatment(1, 3, task1,1);
+        Treatment treatment2 = new Treatment(1, 3, task1,2);
+        Treatment treatment3 = new Treatment(1, 3, task1,3);
+
+        careNeeded.add(treatment1);
+        careNeeded.add(treatment2);
+        careNeeded.add(treatment3);
+
+        
+        Coyote animal1 = new Coyote(1, "Jared", careNeeded);
+        Coyote animal2 = new Coyote(2, "John", careNeeded);
+        Coyote animal3 = new Coyote(3, "Jones", careNeeded);
+        ArrayList<Animal> animals = new ArrayList<>();
+        HashMap<Integer, Animal> animalMap = new HashMap<>();
+        animals.add(animal1);
+        animals.add(animal2);
+        animals.add(animal3);
+        animalMap.put(animal1.getAnimalID(), animal1);
+        animalMap.put(animal2.getAnimalID(), animal2);
+        animalMap.put(animal3.getAnimalID(), animal3);
+        Schedule schedule = new Schedule(animals, animalMap);
+        assertTrue("Incorrect logic in getBackupNeeded",schedule.getBackupNeeded(3));
+    }
 }
