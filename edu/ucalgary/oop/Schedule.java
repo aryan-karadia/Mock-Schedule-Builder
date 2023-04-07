@@ -342,7 +342,7 @@ public class Schedule extends JFrame implements ActionListener {
 
             // check if the new start time has enough available minutes
             if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
-                JOptionPane.showMessageDialog(errorframe, "The new start time does not have enough available minutes to do this task: " + treatment.getTask().getDescription(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(errorframe, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDescription() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;  // ask again for input
             }
 
@@ -364,7 +364,10 @@ public class Schedule extends JFrame implements ActionListener {
         // remove the task from its original time slot
         tasks.get(startTime).remove(treatment);
 
-        errorframe.setVisible(true);
+        // close the error frame
+        errorframe.dispose();
+
+
     }
 
 }
