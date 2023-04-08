@@ -4,21 +4,23 @@ Schedule for 2023-04-07:
 
 1:00 
  * feeding 1 foxs			Minutes Remaining: 50
- * Cleaning Spot's cage			Minutes Remaining: 45
+ * Cleaning Boots's cage			Minutes Remaining: 45
+ * Cleaning Spot's cage			Minutes Remaining: 40
 
 2:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
 
 3:00 
  * Cleaning Loner's cage			Minutes Remaining: 55
- * Cleaning Spike's cage			Minutes Remaining: 45
+ * Cleaning Slinky's cage			Minutes Remaining: 50
+ * Cleaning Spin's cage			Minutes Remaining: 45
 
 4:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
 
 5:00 
  * Cleaning Biter's cage			Minutes Remaining: 55
- * Cleaning Javelin's cage			Minutes Remaining: 45
+ * Cleaning Spike's cage			Minutes Remaining: 45
 
 6:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
@@ -27,21 +29,21 @@ Schedule for 2023-04-07:
 
 7:00 
  * Cleaning Bitter's cage			Minutes Remaining: 55
- * Cleaning Gatekeeper's cage			Minutes Remaining: 45
+ * Cleaning Javelin's cage			Minutes Remaining: 45
 
 8:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
 
 9:00 
  * Cleaning Pencil's cage			Minutes Remaining: 55
- * Cleaning Sunshine's cage			Minutes Remaining: 45
+ * Cleaning Gatekeeper's cage			Minutes Remaining: 45
 
 10:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
 
 11:00 
  * Cleaning Eraser's cage			Minutes Remaining: 55
- * Cleaning Shadow's cage			Minutes Remaining: 45
+ * Cleaning Sunshine's cage			Minutes Remaining: 45
 
 12:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
@@ -61,18 +63,16 @@ Schedule for 2023-04-07:
 14:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
  * Give fluid injection (Boots)			Minutes Remaining: 20
- * Inspect broken leg (Spin)			Minutes Remaining: 5
- * Mange treatment (Spin)			Minutes Remaining: 45
 
 15:00 
- * Mange treatment (Spot)			Minutes Remaining: 45
+ * Inspect broken leg (Spin)			Minutes Remaining: 45
 
 16:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
+ * Mange treatment (Spin)			Minutes Remaining: 15
 
 17:00 
- * Cleaning Annie, Oliver and Mowgli's cage			Minutes Remaining: 55
- * Cleaning Boots's cage			Minutes Remaining: 50
+ * Mange treatment (Spot)			Minutes Remaining: 45
 
 18:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
@@ -92,6 +92,6 @@ Schedule for 2023-04-07:
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 5
 
 23:00 
- * Cleaning Slinky's cage			Minutes Remaining: 55
- * Cleaning Spin's cage			Minutes Remaining: 50
+ * Cleaning Annie, Oliver and Mowgli's cage			Minutes Remaining: 55
+ * Cleaning Shadow's cage			Minutes Remaining: 45
 

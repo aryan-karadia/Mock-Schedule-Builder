@@ -2,15 +2,14 @@ package edu.ucalgary.oop;
 import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
-import java.util.Map;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
-import java.awt.*;
 
-
-public class Schedule extends JFrame implements ActionListener {
+/**
+ * The Schedule class is responsible for creating a schedule for the animals.
+ */
+public class Schedule extends JFrame  {
     private HashMap<Integer, Boolean> backupVolunteerNeeded = new HashMap<>(24);
     private HashMap<Integer, Integer> backupAvailableMinutes = new HashMap<>(24);
     private ArrayList<Animal> animals;
@@ -48,7 +47,8 @@ public class Schedule extends JFrame implements ActionListener {
                         // Not enough time left in the hour to do treatment
                         // print current start time
                         System.out.println("Current Start Time: " + startTime);
-                        GUIMoveTask(startTime, treatment);
+                        Main main = new Main();
+                        main.GUIMoveTask(startTime, treatment, availableMinutes, backupAvailableMinutes, tasks);
                     }
                     else {
                         // calls backup volunteer
@@ -84,7 +84,7 @@ public class Schedule extends JFrame implements ActionListener {
         scheduleFeedingAndCleaningTasks();
     }
 
-    // default constructor which calls a to generate an empty schedule
+    // default constructor which calls to generate an empty schedule
     public Schedule() {
        generateDefaultSchedule();
 
@@ -309,65 +309,6 @@ public class Schedule extends JFrame implements ActionListener {
     }
 
     /** GUI functions **/
-    public void actionPerformed(ActionEvent event){
 
-
-    }
-
-    public void GUIMoveTask(int startTime, Treatment treatment) {
-        JFrame errorframe = new JFrame();
-        errorframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +
-                "\nPlease enter a new start time (0-23) for this task:";
-
-        int newStartTime = -1;
-
-        while (true) {
-            String newStartTimeStr = JOptionPane.showInputDialog(errorframe, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
-
-            // convert the new start time string to integer
-            try {
-                newStartTime = Integer.parseInt(newStartTimeStr);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;  // ask again for input
-            }
-
-            // check if the new start time is valid
-            if (newStartTime < 0 || newStartTime > 23) {
-                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;  // ask again for input
-            }
-
-            // check if the new start time has enough available minutes
-            if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
-                JOptionPane.showMessageDialog(errorframe, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDescription() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
-                continue;  // ask again for input
-            }
-
-            // if we get here, the input is valid, so break out of the loop
-            break;
-        }
-
-        // update the task start time and available minutes accordingly
-        if ((availableMinutes.get(newStartTime) - treatment.getTask().getDURATION() < 0)) {
-            tasks.get(newStartTime).add(treatment);
-            treatment.setMinutesRemaining(backupAvailableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
-            backupAvailableMinutes.put(newStartTime, backupAvailableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
-        } else {
-            tasks.get(newStartTime).add(treatment);
-            treatment.setMinutesRemaining(availableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
-            availableMinutes.put(newStartTime, availableMinutes.get(newStartTime) - treatment.getTask().getDURATION());
-        }
-
-        // remove the task from its original time slot
-        tasks.get(startTime).remove(treatment);
-
-        // close the error frame
-        errorframe.dispose();
-
-
-    }
 
 }
