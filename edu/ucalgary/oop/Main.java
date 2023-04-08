@@ -164,9 +164,20 @@ public class Main extends JFrame {
         return null;
     }
 
-    public static void backupVolunteerNeededGUI(){
-
+    // Method to show GUI when backup volunteer is needed
+    public void backupVolunteerNeededGUI(Schedule schedule) {
+        StringBuilder backupNeededText = new StringBuilder();
+        for (int hour = 0; hour < 24; hour++) {
+            if (schedule.getBackupNeeded(hour)) {
+                backupNeededText.append("Backup volunteer needed at ").append(hour).append(":00\n");
+            }
+        }
+        if (backupNeededText.length() > 0) {
+            JOptionPane.showMessageDialog(null, backupNeededText.toString(), "Backup Volunteer Needed", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
+
+
 
     public void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
         JFrame errorframe = new JFrame();
@@ -211,7 +222,6 @@ public class Main extends JFrame {
         // close the error frame
         errorframe.dispose();
     }
-
 
     public static void main(String[] args) {
         getDatabaseInfo();

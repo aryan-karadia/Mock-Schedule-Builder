@@ -85,7 +85,6 @@ public class Schedule extends JFrame  {
     // default constructor which calls to generate an empty schedule
     public Schedule() {
        generateDefaultSchedule();
-
     }
 
     // gets backup for specified hour
@@ -103,6 +102,18 @@ public class Schedule extends JFrame  {
         // updating backup minutes
         for (int i = hour; i < 24; i++) {
             backupAvailableMinutes.put(i, backupAvailableMinutes.get(i) + 60);
+        }
+        // check if backup is needed
+        checkBackupNeeded();
+    }
+
+
+    public void checkBackupNeeded() {
+        for (int hour = 0; hour < 24; hour++) {
+            if (getBackupNeeded(hour)) {
+                Main main = new Main();
+                main.backupVolunteerNeededGUI(this);
+            }
         }
     }
 
@@ -305,8 +316,4 @@ public class Schedule extends JFrame  {
         }
         return maxIndex;
     }
-
-    /** GUI functions **/
-
-
 }
