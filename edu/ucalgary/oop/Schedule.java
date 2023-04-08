@@ -45,8 +45,7 @@ public class Schedule extends JFrame  {
                         // Not enough time left in the hour to do treatment
                         // print current start time
                         System.out.println("Current Start Time: " + startTime);
-                        Main main = new Main();
-                        main.notEnoughTimeGUI(startTime, treatment, availableMinutes, backupAvailableMinutes, tasks);
+                        Main.notEnoughTimeGUI(startTime, treatment, availableMinutes, backupAvailableMinutes, tasks);
                     }
                     else {
                         // calls backup volunteer
