@@ -168,7 +168,7 @@ public class Main extends JFrame {
 
     }
 
-    public void GUIMoveTask(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
+    public void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
         JFrame errorframe = new JFrame();
         errorframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +

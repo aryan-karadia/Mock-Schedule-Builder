@@ -3,8 +3,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.JOptionPane;
 
 /**
  * The Schedule class is responsible for creating a schedule for the animals.
@@ -48,7 +46,7 @@ public class Schedule extends JFrame  {
                         // print current start time
                         System.out.println("Current Start Time: " + startTime);
                         Main main = new Main();
-                        main.GUIMoveTask(startTime, treatment, availableMinutes, backupAvailableMinutes, tasks);
+                        main.notEnoughTimeGUI(startTime, treatment, availableMinutes, backupAvailableMinutes, tasks);
                     }
                     else {
                         // calls backup volunteer
