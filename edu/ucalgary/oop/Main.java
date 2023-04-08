@@ -40,12 +40,13 @@ import javax.swing.JOptionPane;
 public class Main extends JFrame {
 
     /**
-     * The main method connects to the EWR database, retrieves animal and task data, creates Animal and Task
+     * The getDatabaseInfo method connects to the EWR database, retrieves animal and task data, creates Animal and Task
      * objects, and ultimately creates a schedule for the animals.
      *
      */
 
-    public static Schedule getDatabaseInfo(){
+    public static Schedule getDatabaseInfo() {
+        Schedule schedule = null;
         try {
             Connection connector = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
             Statement stmt = connector.createStatement();
@@ -137,12 +138,11 @@ public class Main extends JFrame {
                 ArrayList<Treatment> treatments1 = animal.getCareNeeded();
                 for (Treatment treatment2 : treatments1) {
                     Task task = taskMap.get(treatment2.getTaskID());
-                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription() + " | Time: "+ treatment2.getStartTime());
+                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription() + " | Time: " + treatment2.getStartTime());
                 }
 
                 System.out.println();
             }
-            Schedule schedule = null;
             try {
                 schedule = new Schedule(animals, animalMap);
             } catch (Exception e) {
@@ -152,8 +152,7 @@ public class Main extends JFrame {
             }
             try {
                 schedule.createScheduleFile();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.err.println("Error creating schedule file: " + e.getMessage());
                 System.exit(1);
             }
@@ -161,7 +160,7 @@ public class Main extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return schedule;
     }
 
     // Method to show GUI when backup volunteer is needed
@@ -179,29 +178,29 @@ public class Main extends JFrame {
 
 
 
-    public void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
-        JFrame errorframe = new JFrame();
-        errorframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
+        JFrame errorFrame = new JFrame();
+        errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +
                 "\nPlease enter a new start time (0-23) for this task:";
         int newStartTime = -1;
         while (true) {
-            String newStartTimeStr = JOptionPane.showInputDialog(errorframe, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
+            String newStartTimeStr = JOptionPane.showInputDialog(errorFrame, message, "Error, Need to Move Task", JOptionPane.ERROR_MESSAGE);
             // convert the new start time string to integer
             try {
                 newStartTime = Integer.parseInt(newStartTimeStr);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(errorFrame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;  // ask again for input
             }
             // check if the new start time is valid
             if (newStartTime < 0 || newStartTime > 23) {
-                JOptionPane.showMessageDialog(errorframe, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(errorFrame, "Invalid input. Please enter an integer from 0 to 23.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;  // ask again for input
             }
             // check if the new start time has enough available minutes
             if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
-                JOptionPane.showMessageDialog(errorframe, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDescription() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(errorFrame, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDescription() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;  // ask again for input
             }
             // if we get here, the input is valid, so break out of the loop
@@ -220,7 +219,7 @@ public class Main extends JFrame {
         // remove the task from its original time slot
         tasks.get(startTime).remove(treatment);
         // close the error frame
-        errorframe.dispose();
+        errorFrame.dispose();
     }
 
     public static void main(String[] args) {
