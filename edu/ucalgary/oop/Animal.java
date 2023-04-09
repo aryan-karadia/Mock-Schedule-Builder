@@ -108,7 +108,7 @@ abstract class Animal {
      */
     public Animal(int animalID, String type, String name, ActiveHours activeHours,
                   ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) throws IllegalArgumentException {
-        if (animalID == 0 || type == null || name == null) {
+        if (animalID < 1  || type == null || name == null) {
             throw new IllegalArgumentException("animalID cannot be null");
         }
         this.ANIMALID = animalID;
