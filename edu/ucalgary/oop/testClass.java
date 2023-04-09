@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -138,7 +139,7 @@ public class testClass {
 
         assertEquals("Enum class gave wrong active feeding hours",expectedFeedingHours, animal1.getActiveHours().feedingHours());
     }
-
+    // testing if backup is needed logic is correct
     @Test
     public void testBackupVol() {
         ArrayList<Treatment> careNeeded = new ArrayList<>();
@@ -241,5 +242,27 @@ public class testClass {
         	testContains = true;
         }
         assertTrue("Feeding time not initialized",testContains);
+    }
+    // tests if illegalArgumentException is thrown when animal has no care needed
+    @Test
+    public void scheduleExceptionTest() {
+        ArrayList<Treatment> careNeeded = new ArrayList<>();
+        Coyote animal1 = new Coyote(1, "Jared", careNeeded);
+        ArrayList<Animal> animals = new ArrayList<>();
+        HashMap<Integer, Animal> animalMap = new HashMap<>();
+        animals.add(animal1);
+        animalMap.put(animal1.getAnimalID(), animal1);
+        
+        boolean illegalArgumentExceptionThrown = false;
+        
+        try {
+            Schedule schedule = new Schedule(animals, animalMap);
+        } catch (IllegalArgumentException e) {
+            illegalArgumentExceptionThrown = true;
+        } catch (Exception e) {
+            Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
+        }
+
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown", illegalArgumentExceptionThrown);
     }
 }
