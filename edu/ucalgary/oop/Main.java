@@ -37,7 +37,6 @@ import javax.swing.JOptionPane;
  */
 
 public class Main extends JFrame {
-
     /**
      * The getDatabaseInfo method connects to the EWR database, retrieves animal and task data, creates Animal and Task
      * objects, and ultimately creates a schedule for the animals.
@@ -162,7 +161,9 @@ public class Main extends JFrame {
         return schedule;
     }
 
-    // Method to show GUI when backup volunteer is needed
+    /**
+     * Method to show GUI when backup volunteer is needed
+     */
     public void backupVolunteerNeededGUI(Schedule schedule) {
         StringBuilder backupNeededText = new StringBuilder();
         for (int hour = 0; hour < 24; hour++) {
@@ -176,7 +177,9 @@ public class Main extends JFrame {
     }
 
 
-
+    /**
+     * Method to show GUI there isn't enough time in a task, so we move it using the gui, updates the schedule and the database
+     */
     public static void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks, Animal animal) {
         JFrame errorFrame = new JFrame();
         errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

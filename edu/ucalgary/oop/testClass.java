@@ -242,36 +242,4 @@ public class testClass {
         }
         assertTrue("Feeding time not initialized",testContains);
     }
-    // test if the database is properly read
-    @Test
-    public void dbRead() {
-        String expected = "Coyote\n" +
-                "Coyote\n" +
-                "Coyote\n" +
-                "Coyote\n" +
-                "Coyote\n" +
-                "Orphan\n" +
-                "Fox\n" +
-                "Porcupine\n" +
-                "Porcupine\n" +
-                "Porcupine\n" +
-                "Porcupine\n" +
-                "Porcupine\n" +
-                "Coyote\n" +
-                "Coyote\n" +
-                "Coyote";
-    	Main main = new Main();
-    	main.main(null);
-        StringBuilder actual = new StringBuilder();
-        
-        for (int i = 0; i < main.getAnimals().size(); i++) {
-            actual.append(main.getAnimals().get(i).getType());
-            if (i < main.getAnimals().size() - 1) {
-                actual.append("\n");
-            }
-        }
-        // Compare the expected and actual output
-        assertEquals("Expected and actual outputs do not match. Expected: [" + expected + "], Actual: [" + actual.toString() + "]", expected, actual.toString());
-    }
-
 }

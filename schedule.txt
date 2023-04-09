@@ -46,7 +46,6 @@ Schedule for 2023-04-09:
 
 12:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
- * Kit feeding (Spot)			Minutes Remaining: 0
 
 13:00 [+ Backup volunteer needed]
  * Inspect broken leg (Biter)			Minutes Remaining: 55
@@ -57,7 +56,6 @@ Schedule for 2023-04-09:
  * Inspect broken leg (Spin)			Minutes Remaining: 10
  * Mange treatment (Spin)			Minutes Remaining: 55
  * Mange treatment (Spot)			Minutes Remaining: 40
- * Kit feeding (Spot)			Minutes Remaining: 10
 
 14:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
@@ -76,7 +74,6 @@ Schedule for 2023-04-09:
 18:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
  * Administer antibiotics (Spike)			Minutes Remaining: 25
- * Kit feeding (Spot)			Minutes Remaining: 30
 
 19:00 
  * Rebandage leg wound (Slinky)			Minutes Remaining: 40
@@ -86,7 +83,7 @@ Schedule for 2023-04-09:
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
 
 21:00 
- * feeding 7 coyotes			Minutes Remaining: 75
+ * feeding 8 coyotes			Minutes Remaining: 70
 
 22:00 [+ Backup volunteer needed]
  * Eyedrops (Loner)			Minutes Remaining: 35
