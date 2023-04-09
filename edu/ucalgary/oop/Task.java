@@ -33,20 +33,21 @@ public class Task {
 
     /**
      * Constructor for the Task class.
-     * 
+     * Throws IllegalArgumentException if task id or desciption is empyty
      * @param taskID      the unique ID of the task
      * @param duration    the duration of the task in minutes
      * @param timeWindow  the time window during which the task can be completed, in minutes
      * @param description a brief description of the task
      */
-    public Task(int taskID, int duration, int timeWindow, String description) {
-        // todo - validate input
+    public Task(int taskID, int duration, int timeWindow, String description) throws IllegalArgumentException {
+        if (taskID < 1 || description.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.TASKID = taskID;
         this.DURATION = duration;
         this.timeWindow = timeWindow;
         this.description = description;
     }
-
     /**
      * Returns the unique ID of the task.
      * 
