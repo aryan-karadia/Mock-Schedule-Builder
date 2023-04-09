@@ -252,24 +252,4 @@ abstract class Animal {
     public int getFoodPrepTime() {
         return this.FOODPREPTIME;
     }
-
-    /**
-     * Returns whether the animal is due for feeding at the current hour.
-     * @param currentHour the current hour.
-     * @return true if the animal is due for feeding, false otherwise.
-     */
-    public boolean isDueForFeeding(int currentHour) {
-        //TODO
-        return false;
-    }
-
-    /**
-     * Returns whether the animal's cage is due for cleaning at the current hour.
-     * @param currentHour the current hour.
-     * @return true if the animal's cage is due for cleaning, false otherwise.
-     */
-    public boolean isDueForCleaning(int currentHour) {
-        //TODO
-        return false;
-    }
 }
