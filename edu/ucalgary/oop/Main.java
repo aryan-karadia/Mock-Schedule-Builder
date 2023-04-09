@@ -28,7 +28,6 @@ package edu.ucalgary.oop;
 import java.sql.*;
 import java.util.*;
 import javax.swing.*;
-import java.awt.event.*;
 import javax.swing.JOptionPane;
 
 
@@ -178,7 +177,7 @@ public class Main extends JFrame {
 
 
 
-    public static void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks) {
+    public static void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks, Animal animal) {
         JFrame errorFrame = new JFrame();
         errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +
@@ -220,6 +219,36 @@ public class Main extends JFrame {
         tasks.get(startTime).remove(treatment);
         // close the error frame
         errorFrame.dispose();
+
+
+
+        try {
+            // Create a connection to the EWR database
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
+
+            // Create a PreparedStatement to update the treatment table
+            PreparedStatement statement = connection.prepareStatement("UPDATE TREATMENTS SET StartHour = ? WHERE AnimalID = ? AND TaskID = ?");
+
+            // Set the parameters of the PreparedStatement to the updated values
+            statement.setString(1, String.valueOf(newStartTime));
+            statement.setInt(2, animal.getAnimalID());
+            statement.setInt(3, treatment.getTaskID());
+
+            // Execute the SQL query to update the treatment table
+            statement.executeUpdate();
+
+            // Close the statement and the connection
+            statement.close();
+            connection.close();
+
+            // Display a success message to the user
+            JOptionPane.showMessageDialog(null, "The start time for " + animal.getName() + "'s " + treatment.getTask().getDescription() + " task has been updated to " + newStartTime + ".", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Display an error message to the user
+            JOptionPane.showMessageDialog(null, "An error occurred while updating the database. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public static void main(String[] args) {
