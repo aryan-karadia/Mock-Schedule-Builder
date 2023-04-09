@@ -26,13 +26,16 @@ public class Treatment {
 
     /**
      * Constructor for the Treatment class.
-     *
+     * Throws illegalargumentexception when start time is negative
      * @param taskID    the ID of the task to be performed
      * @param startTime the start time of the treatment
      * @param task      the task to be performed
      */
-    public Treatment(int taskID, int startTime, Task task, int ANIMALID) {
-        // todo - validate input
+    public Treatment(int taskID, int startTime, Task task, int ANIMALID) throws IllegalArgumentException {
+        if ( startTime < 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.TASKID = taskID;
         this.STARTTIME = startTime;
         this.task = task;
