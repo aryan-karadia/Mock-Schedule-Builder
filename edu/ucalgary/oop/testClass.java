@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -171,7 +171,9 @@ public class testClass {
     @Test
     public void generatingNewSchedule() {
     	Schedule schedule = new Schedule();
-    	String expectedSchedule = "Schedule for 2023-04-06:\n" +
+        String currentDate = LocalDate.now().toString();
+
+        String expectedSchedule = "Schedule for " + currentDate + ":\n" +
     			"0:00 \n *** No tasks scheduled ***\n" +
     			"1:00 \n *** No tasks scheduled ***\n" +
     			"2:00 \n *** No tasks scheduled ***\n" +
@@ -263,6 +265,61 @@ public class testClass {
             Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
         }
 
-        Assert.assertTrue("Expected an IllegalArgumentException to be thrown", illegalArgumentExceptionThrown);
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown when aniaml has no care:", illegalArgumentExceptionThrown);
+    }
+    // Tests if illegalArgumentException is thrown when animal has no name or id
+    @Test
+    public void testAnimalThrowsIllegalArgumentException() {
+        ArrayList<Treatment> careNeeded = new ArrayList<>();
+        boolean illegalArgumentExceptionThrown = false;
+        try {
+            Coyote animal1 = new Coyote(0, "Jared", careNeeded);
+        } catch (IllegalArgumentException e) {
+            illegalArgumentExceptionThrown = true;
+        } catch (Exception e) {
+            Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
+        }
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown when animal id is less than 1:", illegalArgumentExceptionThrown);
+        illegalArgumentExceptionThrown = false;
+        try {
+            Coyote animal2 = new Coyote(1, "", careNeeded);
+        } catch (IllegalArgumentException e) {
+            illegalArgumentExceptionThrown = true;
+        } catch (Exception e) {
+            Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
+        }
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown when no name is given:", illegalArgumentExceptionThrown);
+    }
+    // Tests if illegalArgumentException is thrown when task has no description
+    @Test
+    public void testTasksThrowsIllegalArgumentException() {
+        boolean illegalArgumentExceptionThrown = false;
+
+        // Test for empty description
+        try {
+            Task task3 = new Task(1, 30, 1, "");
+        } catch (IllegalArgumentException e) {
+            illegalArgumentExceptionThrown = true;
+        } catch (Exception e) {
+            Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
+        }
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown when description is empty", illegalArgumentExceptionThrown);
+    }
+    
+    // Tests if illegalArgumentException is thrown when the treatments startTime is negative
+    @Test
+    public void testTreatmentThrowsIllegalArgumentException() {
+        Task testTask = new Task(1, 30, 1, "Test task");
+        boolean illegalArgumentExceptionThrown = false;
+
+        // Test for startTime negative
+        try {
+            Treatment treatment2 = new Treatment(1, -1, testTask, 1);
+        } catch (IllegalArgumentException e) {
+            illegalArgumentExceptionThrown = true;
+        } catch (Exception e) {
+            Assert.fail("Expected an IllegalArgumentException, but caught another exception: " + e.getMessage());
+        }
+        Assert.assertTrue("Expected an IllegalArgumentException to be thrown when startTime is negative", illegalArgumentExceptionThrown);
     }
 }
