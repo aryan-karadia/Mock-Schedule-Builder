@@ -96,6 +96,7 @@ abstract class Animal {
     
     /**
      * Creates a new instance of the Animal class.
+     * Throws IllegalArgumentException when animalID or type or name is null
      * @param animalID the unique ID of the animal.
      * @param type the type of the animal.
      * @param name the name of the animal.
@@ -106,8 +107,10 @@ abstract class Animal {
      * @param timeToClean the time it takes to clean the animal's cage.
      */
     public Animal(int animalID, String type, String name, ActiveHours activeHours,
-                  ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) {
-        // todo - validate input
+                  ArrayList<Treatment> careNeeded, int timeToFeed, int foodPrepTime, int timeToClean) throws IllegalArgumentException {
+        if (animalID == 0 || type == null || name == null) {
+            throw new IllegalArgumentException("animalID cannot be null");
+        }
         this.ANIMALID = animalID;
         this.type = type;
         this.name = name;
