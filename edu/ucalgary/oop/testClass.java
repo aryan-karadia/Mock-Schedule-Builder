@@ -3,9 +3,9 @@ This code tests the inheritance of classes.
 The code starts by importing the packages it needs.
 The code then defines a testClass class.
 The class has a testInheritance method, a taskInheritanceRelationship method, a testAnimalCareNeededAssignment method, and a testAnimalCareNeededContents method.
-The testInheritance method tests whether or not an object can inherit from another object.
+The testInheritance method tests whether an object can inherit from another object.
 The testInheritance method creates a coyote object and tests if it has inherited properties from the animal object.
-The taskInheritanceRelationship method tests whether or not an object can inherit properties from another object within its own object.
+The taskInheritanceRelationship method tests whether an object can inherit properties from another object within its own object.
 The taskInheritanceRelationship method creates a task object and a treatment object and tests if the treatment object has inherited properties from the task object.
 The testAnimalCareNeededAssignment method tests if an array list has been assigned to an object.
 The testAnimalCareNeededAssignment method creates a coyote object and tests if it has the correct array list assigned to it.
@@ -242,7 +242,7 @@ public class testClass {
         }
         assertTrue("Feeding time not initialized",testContains);
     }
-    // test if the database if properly read
+    // test if the database is properly read
     @Test
     public void dbRead() {
         String expected = "Coyote\n" +
@@ -273,4 +273,5 @@ public class testClass {
         // Compare the expected and actual output
         assertEquals("Expected and actual outputs do not match. Expected: [" + expected + "], Actual: [" + actual.toString() + "]", expected, actual.toString());
     }
+
 }
