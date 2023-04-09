@@ -91,7 +91,7 @@ INSERT INTO TREATMENTS (AnimalID, TaskID, StartHour) VALUES
 (10, 7, 23),
 (11, 8, 23),
 (12, 3, 15),
-(13, 6, 22),
+(13, 6, 13),
 (14, 10, 13),
 (14, 8, 13),
 (15, 8, 13),

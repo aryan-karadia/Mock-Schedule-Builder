@@ -61,7 +61,6 @@ Schedule for 2023-04-09:
 
 14:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
- * Kit feeding (Spot)			Minutes Remaining: 0
 
 15:00 
  * Apply burn ointment back (Shadow)			Minutes Remaining: 50
@@ -77,6 +76,7 @@ Schedule for 2023-04-09:
 18:00 
  * Kit feeding (Annie, Oliver and Mowgli)			Minutes Remaining: 30
  * Administer antibiotics (Spike)			Minutes Remaining: 25
+ * Kit feeding (Spot)			Minutes Remaining: 30
 
 19:00 
  * Rebandage leg wound (Slinky)			Minutes Remaining: 40

@@ -248,7 +248,6 @@ public class Main extends JFrame {
             // Display an error message to the user
             JOptionPane.showMessageDialog(null, "An error occurred while updating the database. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     public static void main(String[] args) {
