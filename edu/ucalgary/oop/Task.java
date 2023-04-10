@@ -43,7 +43,9 @@ public class Task {
      * @param DESCRIPTION a brief DESCRIPTION of the task
      */
     public Task(int taskID, int duration, int TIMEWINDOW, String DESCRIPTION) {
-        // todo - validate input
+        if (DESCRIPTION.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.TASKID = taskID;
         this.DURATION = duration;
         this.TIMEWINDOW = TIMEWINDOW;
