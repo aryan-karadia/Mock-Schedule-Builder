@@ -39,8 +39,8 @@ public class Task {
      * @param timeWindow  the time window during which the task can be completed, in minutes
      * @param description a brief description of the task
      */
-    public Task(int taskID, int duration, int timeWindow, String description) throws IllegalArgumentException {
-        if (description.isEmpty()) {
+    public Task(int taskID, int duration, int TIMEWINDOW, String DESCRIPTION) throws IllegalArgumentException {
+        if (DESCRIPTION.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.TASKID = taskID;
