@@ -1,6 +1,9 @@
 /**
  * The Treatment class represents a treatment that consists of a task ID, a start
  * time, and a task to be performed.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 

@@ -6,6 +6,9 @@
  * The constructor takes 4 parameters.
  * The constructor sets the 4 private variables to the 4 parameters.
  * The "Task" class also contains 4 getters that return the values of the 4 private variables.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 
@@ -24,27 +27,27 @@ public class Task {
     /**
      * The time window during which the task can be completed, in minutes.
      */
-    private final int timeWindow;
+    private final int TIMEWINDOW;
     
     /**
-     * A brief description of the task.
+     * A brief DESCRIPTION of the task.
      */
-    private final String description;
+    private final String DESCRIPTION;
 
     /**
      * Constructor for the Task class.
      * 
      * @param taskID      the unique ID of the task
      * @param duration    the duration of the task in minutes
-     * @param timeWindow  the time window during which the task can be completed, in minutes
-     * @param description a brief description of the task
+     * @param TIMEWINDOW  the time window during which the task can be completed, in minutes
+     * @param DESCRIPTION a brief DESCRIPTION of the task
      */
-    public Task(int taskID, int duration, int timeWindow, String description) {
+    public Task(int taskID, int duration, int TIMEWINDOW, String DESCRIPTION) {
         // todo - validate input
         this.TASKID = taskID;
         this.DURATION = duration;
-        this.timeWindow = timeWindow;
-        this.description = description;
+        this.TIMEWINDOW = TIMEWINDOW;
+        this.DESCRIPTION = DESCRIPTION;
     }
 
     /**
@@ -70,16 +73,16 @@ public class Task {
      * 
      * @return the task time window
      */
-    public int getTimeWindow() {
-        return this.timeWindow;
+    public int getTIMEWINDOW() {
+        return this.TIMEWINDOW;
     }
 
     /**
-     * Returns a brief description of the task.
+     * Returns a brief DESCRIPTION of the task.
      * 
-     * @return the task description
+     * @return the task DESCRIPTION
      */
-    public String getDescription() {
-        return this.description;
+    public String getDESCRIPTION() {
+        return this.DESCRIPTION;
     }
 }

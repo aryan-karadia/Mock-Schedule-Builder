@@ -34,6 +34,9 @@ import javax.swing.JOptionPane;
 /**
  * The Main class is responsible for connecting to the EWR database, retrieving animal and task data,
  * creating Animal and Task objects, and ultimately creating a schedule for the animals.
+ * @author Thomas Mattern, Aryan Karadia, Aditya Prasad, Brock Tomlinson
+ * @version 1.6
+ * @since 1.0
  */
 
 public class Main extends JFrame {
@@ -136,7 +139,7 @@ public class Main extends JFrame {
                 ArrayList<Treatment> treatments1 = animal.getCareNeeded();
                 for (Treatment treatment2 : treatments1) {
                     Task task = taskMap.get(treatment2.getTaskID());
-                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDescription() + " | Time: " + treatment2.getStartTime());
+                    System.out.println("Task ID: " + task.getID() + " | Description: " + task.getDESCRIPTION() + " | Time: " + treatment2.getStartTime());
                 }
 
                 System.out.println();
@@ -183,7 +186,7 @@ public class Main extends JFrame {
     public static void notEnoughTimeGUI(int startTime, Treatment treatment, HashMap<Integer, Integer> availableMinutes, HashMap<Integer, Integer> backupAvailableMinutes, HashMap<Integer, ArrayList<Treatment>> tasks, Animal animal) {
         JFrame errorFrame = new JFrame();
         errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDescription() + "." +
+        String message = "Not enough time left in the hour " + treatment.getStartTime() + " to do treatment: " + treatment.getTask().getDESCRIPTION() + "." +
                 "\nPlease enter a new start time (0-23) for this task:";
         int newStartTime = -1;
         while (true) {
@@ -202,7 +205,7 @@ public class Main extends JFrame {
             }
             // check if the new start time has enough available minutes
             if ((availableMinutes.get(newStartTime) + backupAvailableMinutes.get(newStartTime)) - treatment.getTask().getDURATION() < 0) {
-                JOptionPane.showMessageDialog(errorFrame, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDescription() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(errorFrame, "The new start time: "+ newStartTimeStr + ", does not have enough available minutes to do this task: " + treatment.getTask().getDESCRIPTION() + ". Please assign a different time.", "Error", JOptionPane.ERROR_MESSAGE);
                 continue;  // ask again for input
             }
             // if we get here, the input is valid, so break out of the loop
@@ -245,7 +248,7 @@ public class Main extends JFrame {
             connection.close();
 
             // Display a success message to the user
-            JOptionPane.showMessageDialog(null, "The start time for " + animal.getName() + "'s " + treatment.getTask().getDescription() + " task has been updated to " + newStartTime + ".", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The start time for " + animal.getName() + "'s " + treatment.getTask().getDESCRIPTION() + " task has been updated to " + newStartTime + ".", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
             // Display an error message to the user

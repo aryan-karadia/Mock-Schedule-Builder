@@ -2,6 +2,9 @@
  * The Coyote class extends the Animal class to represent a coyote.
  * The coyote is a diurnal animal.
  * The class has a constructor that initializes its attributes and calls the super constructor to initialize inherited attributes.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 
