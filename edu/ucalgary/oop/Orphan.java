@@ -1,6 +1,9 @@
 /**
  * This code creates an Orphan child class of the Animal parent class.
  * The class represents an orphan animal in the zoo.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 

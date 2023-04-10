@@ -26,6 +26,9 @@
  * to the value of the "cleaned" parameter.
  * The fourteenth method is named "isDueForFeeding" and returns a boolean value.
  * The fifteenth method is named "isDueForCleaning" and returns a boolean value.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.4
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 import java.util.ArrayList;

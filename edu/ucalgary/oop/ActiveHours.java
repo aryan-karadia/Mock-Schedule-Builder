@@ -10,6 +10,9 @@
  * ArrayList that contains the numbers 8, 9, and 10.
  * The "CREPUSCULAR" constant has a method named "feedingHours" that returns an 
  * ArrayList that contains the numbers 19, 20 and 21.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.0
+ * @since 1.0
  */
 
  package edu.ucalgary.oop;

@@ -4,6 +4,9 @@
  * The Animal class's constructor method takes in an animal ID, an animal type, a name, 
  * an ActiveHours object, a list of Treatment objects, a cage size, a daily food cost, 
  * and a daily food quantity.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 import java.util.ArrayList;

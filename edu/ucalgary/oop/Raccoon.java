@@ -1,4 +1,4 @@
-/*
+/**
  * This code extends the Animal class.
  * The code starts by importing "java.util.ArrayList". 
  * It then defines a class named "Raccoon" and extends the "Animal" class.
@@ -6,6 +6,9 @@
  * and a careNeeded variable.
  * The constructor then calls the constructor of the "Animal" class and passes 
  * in the animalID, "Raccoon", name, ActiveHours.NOCTURNAL, careNeeded, 5, 0, and 5.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 

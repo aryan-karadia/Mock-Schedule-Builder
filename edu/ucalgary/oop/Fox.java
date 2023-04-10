@@ -1,6 +1,9 @@
 /**
  * This class represents a Fox, which is an Animal that extends the Animal class.
  * The class contains a constructor that initializes a Fox object with a given animalID, name, and careNeeded.
+ * @author Aryan Karadia, Aditya Prasad, Thomas Mattern, Brock Tomlinson
+ * @version 1.2
+ * @since 1.0
  */
 package edu.ucalgary.oop;
 
