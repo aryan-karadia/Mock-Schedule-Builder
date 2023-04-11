@@ -18,7 +18,6 @@ public class Schedule extends JFrame  {
     private HashMap<Integer, ArrayList<Treatment>> tasks = new HashMap<>(24);
     private HashMap<Integer, Integer> availableMinutes = new HashMap<>(24);
     private ArrayList<Integer> animalsNotFed = new ArrayList<>();
-    private Set<String> checkedScenarios = new HashSet<>();
 
     /** Creates schedule object and schedules mandatory medical tasks
      *  @param animals - ArrayList of all animals in the rescue center
@@ -78,20 +77,14 @@ public class Schedule extends JFrame  {
 
     /** Checks if backup is ever needed
      **/
-
     public void checkBackupNeeded() {
         for (int hour = 0; hour < 24; hour++) {
             if (getBackupNeeded(hour)) {
-                String scenario = "hour " + hour;
-                if (!checkedScenarios.contains(scenario)) {
-                    Main main = new Main();
-                    main.backupVolunteerNeededGUI(this, scenario);
-                    checkedScenarios.add(scenario);
-                }
+                Main main = new Main();
+                main.backupVolunteerNeededGUI(this);
             }
         }
     }
-
 
     /** Finds all available time and schedules feeding and cleaning
      *
@@ -311,11 +304,9 @@ public class Schedule extends JFrame  {
         // checks if there is enough time to do the treatment. If not enough time calls GUI else keeps checking
         if ((availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime)) - treatment.getTask().getDURATION() < 0) {
             HashSet<Boolean> previousHours = new HashSet<>();
-            /**
             for (int i = 0; i < startTime + 1; i++) {
                 previousHours.add(this.backupVolunteerNeeded.get(i));
             }
-             */
             if (previousHours.contains(true)) {
                 // Not enough time left in the hour to do treatment
                 // print current start time

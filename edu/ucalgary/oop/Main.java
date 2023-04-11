@@ -167,7 +167,7 @@ public class Main extends JFrame {
     /**
      * Method to show GUI when backup volunteer is needed
      */
-    public void backupVolunteerNeededGUI(Schedule schedule, String scenario) {
+    public void backupVolunteerNeededGUI(Schedule schedule) {
         StringBuilder backupNeededText = new StringBuilder();
         for (int hour = 0; hour < 24; hour++) {
             if (schedule.getBackupNeeded(hour)) {
@@ -223,7 +223,6 @@ public class Main extends JFrame {
         }
         // remove the task from its original time slot
         tasks.get(startTime).remove(treatment);
-        getDatabaseInfo();
         // close the error frame
         errorFrame.dispose();
 
@@ -259,6 +258,5 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
         getDatabaseInfo();
-
     }
 }
