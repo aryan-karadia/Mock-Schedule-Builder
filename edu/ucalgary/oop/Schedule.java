@@ -18,6 +18,7 @@ public class Schedule extends JFrame  {
     private HashMap<Integer, ArrayList<Treatment>> tasks = new HashMap<>(24);
     private HashMap<Integer, Integer> availableMinutes = new HashMap<>(24);
     private ArrayList<Integer> animalsNotFed = new ArrayList<>();
+    private Set<String> checkedScenarios = new HashSet<>();
 
     /** Creates schedule object and schedules mandatory medical tasks
      *  @param animals - ArrayList of all animals in the rescue center
@@ -77,7 +78,6 @@ public class Schedule extends JFrame  {
 
     /** Checks if backup is ever needed
      **/
-    private Set<String> checkedScenarios = new HashSet<>();
 
     public void checkBackupNeeded() {
         for (int hour = 0; hour < 24; hour++) {
