@@ -14,6 +14,6 @@ Thomas Mattern
 UCID: 30147476
 
 
-LINK TO VIDEO
+LINK TO DEMO VIDEO
 
 https://youtu.be/1f8WZ_o2JYA
