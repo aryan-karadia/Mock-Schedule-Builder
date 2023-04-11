@@ -29,6 +29,8 @@ import java.sql.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -175,7 +177,14 @@ public class Main extends JFrame {
             }
         }
         if (backupNeededText.length() > 0) {
-            JOptionPane.showMessageDialog(null, backupNeededText.toString(), "Backup Volunteer Needed", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane pane = new JOptionPane(backupNeededText.toString(), JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{ "Confirm" });
+            JDialog dialog = pane.createDialog("Backup Volunteer Needed");
+            dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+            dialog.setVisible(true);
+            Object selectedValue = pane.getValue();
+            if (selectedValue != null && selectedValue.equals("Confirm")) {
+                dialog.dispose();
+            }
         }
     }
 
