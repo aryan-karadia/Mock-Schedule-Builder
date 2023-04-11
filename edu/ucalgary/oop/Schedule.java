@@ -77,14 +77,21 @@ public class Schedule extends JFrame  {
 
     /** Checks if backup is ever needed
      **/
+    private Set<String> checkedScenarios = new HashSet<>();
+
     public void checkBackupNeeded() {
         for (int hour = 0; hour < 24; hour++) {
             if (getBackupNeeded(hour)) {
-                Main main = new Main();
-                main.backupVolunteerNeededGUI(this);
+                String scenario = "hour " + hour;
+                if (!checkedScenarios.contains(scenario)) {
+                    Main main = new Main();
+                    main.backupVolunteerNeededGUI(this, scenario);
+                    checkedScenarios.add(scenario);
+                }
             }
         }
     }
+
 
     /** Finds all available time and schedules feeding and cleaning
      *
@@ -304,9 +311,11 @@ public class Schedule extends JFrame  {
         // checks if there is enough time to do the treatment. If not enough time calls GUI else keeps checking
         if ((availableMinutes.get(startTime) + backupAvailableMinutes.get(startTime)) - treatment.getTask().getDURATION() < 0) {
             HashSet<Boolean> previousHours = new HashSet<>();
+            /**
             for (int i = 0; i < startTime + 1; i++) {
                 previousHours.add(this.backupVolunteerNeeded.get(i));
             }
+             */
             if (previousHours.contains(true)) {
                 // Not enough time left in the hour to do treatment
                 // print current start time
