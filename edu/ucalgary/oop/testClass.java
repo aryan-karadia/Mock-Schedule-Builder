@@ -101,8 +101,8 @@ public class testClass {
 
         assertEquals("TaskID mismatch",task1.getID(), treatment1.getTask().getID());
         assertEquals("Task Duration mismatch",task1.getDURATION(), treatment1.getTask().getDURATION());
-        assertEquals("Task time window mismatch",task1.getTimeWindow(), treatment1.getTask().getTimeWindow());
-        assertEquals("Description mismatch",task1.getDescription(), treatment1.getTask().getDescription());
+        assertEquals("Task time window mismatch",task1.getTIMEWINDOW(), treatment1.getTask().getTIMEWINDOW());
+        assertEquals("Description mismatch",task1.getDESCRIPTION(), treatment1.getTask().getDESCRIPTION());
     }
     // Test if the animal object has the correct careNeeded list assigned
     @Test
