@@ -1,6 +1,6 @@
 # Mock Volunteering Schedule Builder
 
-This project is a Java application that generates daily task schedules for volunteers working at a mock wildlife rescue center. This project is a prime example of starting with a client definition and creating test-driven code. The project was created with fellow engineering students following a self-made timeline. This timeline started with a UML diagram created from a client definition, followed by a test suite to ensure object-oriented programming principles are obeyed. As the code is developed, continious updating of the UML and test suite is adhered to follow code.
+This project is a Java application that generates daily task schedules for volunteers working at a mock wildlife rescue center. This project is a prime example of starting with a client definition and creating test-driven code. The project was created with fellow engineering students following a self-made timeline. This timeline started with a UML diagram created from a client definition, followed by a test suite to ensure object-oriented programming principles are obeyed. As the code is developed, continuous updating of the UML and test suite is adhered to follow code.
 
 ## How it Works
 
